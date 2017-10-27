@@ -23,9 +23,32 @@ def Main():
                 if not receiveMess:
                                     break
                 #Print info from client
-                print ("Message from User to Chatbot : " + str(receiveMess))
+                print ("Message from receiveMess to Chatbot : " + str(receiveMess))
                 #set return message
-                returnMess = "This is the return message"
+                
+                import random
+                GreetingsKeywords = ["hi","hello","sup","whatsup","greetings","what's up?","greetings"]
+                GreetingsResponses = ["hi","*stares at you blankly*","hello","greetings","good day","hey"]
+
+                
+                def GREETINGS(receiveMess):
+                    if receiveMess in GreetingsKeywords:
+                        greeting = 1
+                        response = random.choice(GreetingsResponses)
+                        return response
+
+                GoodbyeKeywords = ["bye","bai","peace","see you"]
+                GoodbyeResponses = ["cya","bye"]
+                def GOODBYES(receiveMess):
+                    if receiveMess.lower() in GoodbyeKeywords:
+                        goodbye = 1
+                        response = random.choice(GoodbyeResponses)
+                        return response
+                if (GOODBYES(receiveMess)):
+                     returnMess = GOODBYES(receiveMess)
+                elif (GREETINGS(receiveMess)):
+                     returnMess = GREETINGS(receiveMess)
+                print(returnMess)                   
                 conn.send(returnMess.encode())                             
     conn.close()                
 if __name__ == '__main__':
