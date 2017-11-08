@@ -42,7 +42,7 @@ def Main():
                 goodbye=0
                 countBest=0
 
-                def stringToList(receiveMess)
+                def stringToList(receiveMess):
                     receiveMess = receiveMess.split()
                     for word in receiveMess:
                         for character in word:
