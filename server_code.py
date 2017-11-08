@@ -26,38 +26,53 @@ def Main():
                 print ("Message from receiveMess to Chatbot : " + str(receiveMess))
                 #set return message
                 
-                import random
-                GreetingsKeywords = ["hi","hello","sup","whatsup","greetings","what's up?","greetings"]
-                GreetingsResponses = ["hi","*stares at you blankly*","hello","greetings","good day","hey"]
-
                 
-                def GREETINGS(receiveMess):
-                    if receiveMess in GreetingsKeywords:
-                        greeting = 1
-                        response = random.choice(GreetingsResponses)
-                        return response
+                import random
+                from imdb import imdb
+                i=imdb.IMDb(accessSystem='http')
 
-                GoodbyeKeywords = ["bye","bai","peace","see you"]
-                GoodbyeResponses = ["cya","bye"]
+                GreetingsKeywords = ["hi","hello","sup","whatsup","greetings"]
+                GreetingsResponses = ["hi","*stares at you blankly*","hello","greetings","good day","hey"]
+                GoodbyeKeywords = ["bye","bai","cya","peace"]
+                GoodbyeResponses = ["bye","cya","peace","good day"]
+                BestKeywords = ["best","recommendation","good","interesting"]
+                  
+
+                greeting=0
+                goodbye=0
+                countBest=0
+
+                def stringToList(receiveMess)
+                    receiveMess = receiveMess.split()
+                    for word in receiveMess:
+                        for character in word:
+                            wordPlace = receiveMess.index(word)
+                            if character=="?" or character=="." or character=="," or character=="!":
+                                wordGood = word.replace(character,"")
+                                receiveMess[wordPlace] = wordGood
+                    return receiveMess
+
+                def GREETINGS(receiveMess):
+                    for word in receiveMess:
+                        if word.lower() in GreetingsKeywords:
+                            greeting = 1
+                            response = random.choice(GreetingsResponses)
+                            return response
+                              
                 def GOODBYES(receiveMess):
-                    if receiveMess.lower() in GoodbyeKeywords:
-                        goodbye = 1
-                        response = random.choice(GoodbyeResponses)
-                        return response
+                    for word in receiveMess:
+                        if word.lower() in GoodbyeKeywords:
+                            goodbye = 1
+                            response = random.choice(GoodbyeResponses)
+                            return response
+                stringToList(receiveMess)
                 if (GOODBYES(receiveMess)):
                      returnMess = GOODBYES(receiveMess)
                 elif (GREETINGS(receiveMess)):
                      returnMess = GREETINGS(receiveMess)
-                print(returnMess)                   
+                print returnMess                
                 conn.send(returnMess.encode())                             
     conn.close()                
 if __name__ == '__main__':
-            Main()
-
-
-
-
-
-
-
-            
+         Main()
+          
