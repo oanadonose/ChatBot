@@ -70,6 +70,8 @@ def Main():
                      returnMess = GOODBYES(receiveMess)
                 elif (GREETINGS(receiveMess)):
                      returnMess = GREETINGS(receiveMess)
+                else: 
+                    returnMess = "Unassigned" #Added to do some error checking. 
                 print returnMess                
                 conn.send(returnMess.encode())                             
     conn.close()                
