@@ -1,5 +1,5 @@
 from imdb import IMDb
-from movieID import movieSearch
+from MovieID import movieSearch
 ia = IMDb()
 
 """Takes a movie title as input, runs a search and returns the movieID for the first match in the list"""
