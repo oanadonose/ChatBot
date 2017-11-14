@@ -1,5 +1,8 @@
 import socket
 import time
+import random
+from imdb import imdb
+i=imdb.IMDb(accessSystem='http')
  
  
 def Main():
@@ -23,16 +26,10 @@ def Main():
                 if not receiveMess:
                                     break
                 #Print info from client
-                print ("Message from receiveMess to Chatbot : " + str(receiveMess))
+                print ("Message from User to Chatbot : " + str(receiveMess))
                 #set return message
-                
-                
-                import random
-                from imdb import imdb
-                i=imdb.IMDb(accessSystem='http')
-                print returnMess                
+                returnMess = "This is the return message"
                 conn.send(returnMess.encode())                             
     conn.close()                
 if __name__ == '__main__':
-         Main()
-          
+            Main()
