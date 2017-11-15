@@ -17,7 +17,7 @@ def searchKeyword(keyword):
 		film = movieList[x]
 		print("I recommend "+ film['title']+", with a rating of "+ film['rating'])
 		user = input("Would you like another recommendation? y/n")
-		if user == y:
+		if user == "y":
 			x = x+1
 		else:
 			break
