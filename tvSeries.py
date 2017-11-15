@@ -20,16 +20,24 @@ def seasonsEpisodesCounter(seriesTitle):
 	for k,v in e.items():
 		seasonCount = seasonCount + 1 #number of seasons
 
-	message = "The Series " + str(m['title'])+" has " + str(seasonCount) +  " seasons"
+	#message = "The Series " + str(m['title'])+" has " + str(seasonCount) +  " seasons"
 
 	for k,v in e.items():
 		for x,y in v.items():
 			episodeCount = episodeCount + 1
 
-	message = message + " and "+ str(episodeCount) + " episodes."
-	return message
+	#message = message + " and "+ str(episodeCount) + " episodes."
+	return (seasonCount, episodeCount)
 
 #print(seasonsEpisodesCounter(seriesTitle)) #test
+def listOfEpisodes(episodes):
+for k,v in episodes.items():#k is the key of the dict--season_number(also a dictionary).#v is the value--#episode_number:movie object)
+	message = "season " + str(k) +"\n"
+	for x,y in v.items():#x is the key of the dict--episode-number.#y is the value--movei object
+		message = message + " episode " + str(x)
+		message = message + ": " + y['title']
+		message = message + "\n"
+	return message
 #-------------------------------------------------------------------------------------------------------------
 
 moreInfo = input("Would you like to see more info about a specific episode? y/n ")
