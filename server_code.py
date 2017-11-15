@@ -19,6 +19,7 @@ def Main():
 	#print Connect ip address
 	print ("The Connection ip is : " + str(addr))
 	#Repeat forever
+	filmIDSearch = 0	
 	while True:
 				#Receive info from client
 				receiveMess = conn.recv(1024).decode()
@@ -26,8 +27,12 @@ def Main():
 				#if no info from client end loop
 				if not receiveMess:
 									break
-				if ('search' in receiveWords or 'find' in receiveWords) and ('film' in receiveWords or 'movie' in receiveWords):
-					returnMess = str(movieSearch(receiveWords[2]))
+				if filmIDSearch == 1:
+					returnMess = str(movieSearch(str(receiveMess)))
+					filmIDSearch = 0
+				elif ('search' in receiveWords or 'find' in receiveWords) and ('film' in receiveWords or 'movie' in receiveWords) and ('ID' in receiveWords):
+					filmIDSearch = 1
+					returnMess = "What movie ID would you like to search for? "	
 				elif 'search' in receiveWords or 'find' in receiveWords:
 					returnMess = 'Search Pass' 
 				else:
