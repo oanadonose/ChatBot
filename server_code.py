@@ -19,10 +19,12 @@ def Main():
 	#print Connect ip address
 	print ("The Connection ip is : " + str(addr))
 	#Repeat forever
-	filmIDSearch = 0	
+	filmIDSearch = 0		
 	while True:
 				#Receive info from client
 				receiveMess = conn.recv(1024).decode()
+				log = open ("log.txt","a")
+				log.write("\n" + Server: " + receiveMess)
 				receiveWords = receiveMess.split()
 				#if no info from client end loop
 				if not receiveMess:
@@ -40,7 +42,9 @@ def Main():
 					#Print info from client
 				print ("Message from User to Chatbot : " + str(receiveMess))
 					#set return message
+				log.write("\n" + Client: " + returnMess)
 				conn.send(returnMess.encode())                             
+	log.close()	
 	conn.close()                
 if __name__ == '__main__':
 			Main()
