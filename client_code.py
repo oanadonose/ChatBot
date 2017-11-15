@@ -18,7 +18,7 @@ def Main():
                         print('Message Received from ChatBot: '+RMess)
                         #Get user message to ChatBot
                         message = raw_input(" Message to  ChatBot: ")
-    #Close Socket
+    #Close Socket	
     thisSocket.close()
     #Display conversation is over
     print("Conversation between user and ChatBot Ended")

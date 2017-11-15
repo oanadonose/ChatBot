@@ -23,12 +23,13 @@ def Main():
 	while True:
 				#Receive info from client
 				receiveMess = conn.recv(1024).decode()
-				log = open ("log.txt","a")
+				log = open ("log.txt","w")
 				log.write("\n" + "Server: " + receiveMess)
 				receiveWords = receiveMess.split()
 				#if no info from client end loop
 				if not receiveMess:
 									break
+				
 				if filmIDSearch == 1: #If asking user for movie title for movieID 
 					returnMess = str(movieSearch(str(receiveMess)))
 					filmIDSearch = 0
