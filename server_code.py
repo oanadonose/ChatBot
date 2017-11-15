@@ -27,16 +27,16 @@ def Main():
 				#if no info from client end loop
 				if not receiveMess:
 									break
-				if filmIDSearch == 1:
+				if filmIDSearch == 1: #If asking user for movie title for movieID 
 					returnMess = str(movieSearch(str(receiveMess)))
 					filmIDSearch = 0
-				elif ('search' in receiveWords or 'find' in receiveWords) and ('film' in receiveWords or 'movie' in receiveWords) and ('ID' in receiveWords):
-					filmIDSearch = 1
+				elif ('search' in receiveWords or 'find' in receiveWords) and ('film' in receiveWords or 'movie' in receiveWords) and ('ID' in receiveWords): #User asking for movie ID
+					filmIDSearch = 1 #Starts asking user for film title
 					returnMess = "What movie ID would you like to search for? "	
-				elif 'search' in receiveWords or 'find' in receiveWords:
+				elif 'search' in receiveWords or 'find' in receiveWords: #Test code
 					returnMess = 'Search Pass' 
 				else:
-					returnMess = 'No' 
+					returnMess = 'No' #NEED TO CHANGE THIS
 					#Print info from client
 				print ("Message from User to Chatbot : " + str(receiveMess))
 					#set return message
