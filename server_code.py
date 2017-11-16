@@ -25,16 +25,11 @@ def Main():
 	movieTerms = ['movie','film']
 	idTerms = ['id']		
 	
-	###################################################
-	
-	#################Flag Resets###############
+	##################################################
+
+	####################Defaults######################
 	filmIDSearch = 0
-	flagSearch = 0
-	flagMovie = 0
-	flagID = 0
-	############################################# 
-
-
+	##################################################
 	while True:
 				#Receive info from client
 				
@@ -49,6 +44,14 @@ def Main():
 				if not receiveMess:
 									break
 				
+				#################Flag Resets#################
+				flagSearch = 0
+				flagMovie = 0
+				flagID = 0
+				############################################# 
+
+
+
 				#################Flag Settings#################
 				if any(word in receiveWords for word in searchTerms):
 					flagSearch = 1
