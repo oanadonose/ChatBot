@@ -1,9 +1,10 @@
 from imdb import IMDb
 from MovieID import movieSearch
-i = IMDb()
+
 
 """Dependent on movieSearch function, takes movie title as input and returns a list(castList) containing the top 5 cast names"""
 def castGet(movieTitle):
+	i = IMDb(accessSystem='http')
 	castList = [] #Creates an empty list
 	movieID = movieSearch(movieTitle) #Pulls movieID from movieSearch func
 	movie = i.get_movie(movieID) 
@@ -11,4 +12,8 @@ def castGet(movieTitle):
 		castPull = movie['cast'][i]
 		appendName = castPull['name']
 		castList.append(appendName)
-	return castList
+		castList = [x.encode('utf-8') for x in castList]
+		strCast = str(castList).replace("[","").replace("]","").replace("'","")
+	return strCast
+
+print(castGet('inception'))

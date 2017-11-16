@@ -3,6 +3,7 @@ import time
 import random
 from imdb import imdb
 from MovieID import movieSearch
+from castlist import castGet
 i=imdb.IMDb(accessSystem='http')
  
 def Main():
@@ -23,12 +24,14 @@ def Main():
 	##################List of terms####################
 	searchTerms = ['search','find']
 	movieTerms = ['movie','film']
-	idTerms = ['id']		
+	idTerms = ['id']	
+	castTerms = ['cast']	
 	
 	##################################################
 
 	####################Defaults######################
 	filmIDSearch = 0
+	castSearch = 0
 	##################################################
 	while True:
 				#Receive info from client
@@ -48,6 +51,7 @@ def Main():
 				flagSearch = 0
 				flagMovie = 0
 				flagID = 0
+				flagCast = 0
 				############################################# 
 
 
@@ -59,15 +63,23 @@ def Main():
 					flagMovie = 1
 				if any(word in receiveWords for word in idTerms):
 					flagID = 1
+				if any(word in receiveWords for word in castTerms):
+					flagCast = 1
 				#############################################
 
 				#################Responses#################
 				if filmIDSearch == 1: #If asking user for movie title for movieID 
 					returnMess = str(movieSearch(str(receiveMess)))
 					filmIDSearch = 0
+				elif castSearch == 1:
+					returnMess = str(castGet(str(receiveMess)))
+					castSearch = 0
 				elif flagSearch == 1 and flagMovie == 1 and flagID == 1: #User asking for movie ID
 					filmIDSearch = 1 #Starts asking user for film title
 					returnMess = "What movie ID would you like to search for? "	
+				elif flagSearch == 1 and flagCast == 1: 
+					castSearch = 1
+					returnMess = "What movie would you like to search for the cast members of?"
 				elif flagSearch == 1 and flagMovie == 1: 
 					returnMess = 'Search Pass' 
 				else:
