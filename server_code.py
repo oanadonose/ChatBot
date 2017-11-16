@@ -21,11 +21,19 @@ def Main():
 	#Repeat forever
 	
 	##################List of terms####################
-	searchTerms = ('search','find')
-	movieTerms = ('movie','film')
-	idTerms = ('id')		
+	searchTerms = ['search','find']
+	movieTerms = ['movie','film']
+	idTerms = ['id']		
 	
 	###################################################
+	filmIDSearch = 0	
+	#################Flag Resets###############
+	flagSearch = 0
+	flagMovie = 0
+	flagID = 0
+	############################################# 
+
+
 	while True:
 				#Receive info from client
 				
@@ -36,23 +44,16 @@ def Main():
 				receiveWords = receiveMess.split()
 				#if no info from client end loop
 				
-				#################Flag Resets#################
-				filmIDSearch = 0
-				flagSearch = 0
-				flagMovie = 0
-				flagID = 0
-				#############################################
-				
 				#If no message recieved
 				if not receiveMess:
 									break
 				
 				#################Flag Settings#################
-				if searchTerms in receiveWords:
+				if any(word in receiveWords for word in searchTerms):
 					flagSearch = 1
-				if movieTerms in receiveWords:
+				if any(word in receiveWords for word in movieTerms):
 					flagMovie = 1
-				if idTerms in receiveWords:
+				if any(word in receiveWords for word in idTerms):
 					flagID = 1
 				#############################################
 
@@ -60,10 +61,10 @@ def Main():
 				if filmIDSearch == 1: #If asking user for movie title for movieID 
 					returnMess = str(movieSearch(str(receiveMess)))
 					filmIDSearch = 0
-				elif flagSearch == 1 or flagMovie == 1 or flagID == 1: #User asking for movie ID
+				elif flagSearch == 1 and flagMovie == 1 and flagID == 1: #User asking for movie ID
 					filmIDSearch = 1 #Starts asking user for film title
 					returnMess = "What movie ID would you like to search for? "	
-				elif flagSearch == 1 or flagMovie == 1: 
+				elif flagSearch == 1 and flagMovie == 1: 
 					returnMess = 'Search Pass' 
 				else:
 					returnMess = 'No' #NEED TO CHANGE THIS
@@ -73,9 +74,10 @@ def Main():
 				print ("Message from User to Chatbot : " + str(receiveMess))
 					#set return message
 				log.write("\n" + "Client: " + returnMess)
-				conn.send(returnMess.encode())                             
+				conn.send(returnMess.encode())                            
 	log.close()	
 	conn.close()                
 if __name__ == '__main__':
 			Main()
+
 
