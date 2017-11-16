@@ -83,7 +83,7 @@ def Main():
 				elif flagSearch == 1 and flagMovie == 1: 
 					returnMess = 'Search Pass' 
 				else:
-					returnMess = 'No' #NEED TO CHANGE THIS
+					returnMess = "I'm sorry, I didn't understand." #Error catch
 				###################################################
 
 					#Print info from client
