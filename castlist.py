@@ -16,4 +16,3 @@ def castGet(movieTitle):
 		strCast = str(castList).replace("[","").replace("]","").replace("'","")
 	return strCast
 
-print(castGet('inception'))
