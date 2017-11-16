@@ -26,8 +26,9 @@ def Main():
 	idTerms = ['id']		
 	
 	###################################################
-	filmIDSearch = 0	
+	
 	#################Flag Resets###############
+	filmIDSearch = 0
 	flagSearch = 0
 	flagMovie = 0
 	flagID = 0
