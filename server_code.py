@@ -4,6 +4,7 @@ import random
 from imdb import imdb
 from MovieID import movieSearch
 from castlist import castGet
+
 i=imdb.IMDb(accessSystem='http')
  
 def Main():
@@ -32,6 +33,8 @@ def Main():
 	####################Defaults######################
 	filmIDSearch = 0
 	castSearch = 0
+	castNumPull = 0
+	titleStore = ''
 	##################################################
 	while True:
 				#Receive info from client
@@ -71,14 +74,20 @@ def Main():
 				if filmIDSearch == 1: #If asking user for movie title for movieID 
 					returnMess = str(movieSearch(str(receiveMess)))
 					filmIDSearch = 0
+				elif castNumPull == 1:
+					castNumPull = 0
+					castSearch = 1
+					titleStore = receiveMess
+					returnMess = "How many cast members do you want listed? "
 				elif castSearch == 1:
-					returnMess = str(castGet(str(receiveMess)))
+					castNum = receiveMess
+					returnMess = str(castGet(str(titleStore),int(castNum)))
 					castSearch = 0
 				elif flagSearch == 1 and flagMovie == 1 and flagID == 1: #User asking for movie ID
 					filmIDSearch = 1 #Starts asking user for film title
 					returnMess = "What movie ID would you like to search for? "	
 				elif flagSearch == 1 and flagCast == 1: 
-					castSearch = 1
+					castNumPull = 1
 					returnMess = "What movie would you like to search for the cast members of?"
 				elif flagSearch == 1 and flagMovie == 1: 
 					returnMess = 'Search Pass' 
@@ -90,7 +99,8 @@ def Main():
 				print ("Message from User to Chatbot : " + str(receiveMess))
 					#set return message
 				log.write("\n" + "Client: " + returnMess)
-				conn.send(returnMess.encode())                            
+				conn.send(returnMess.encode())   
+				print(returnMess)                         
 	log.close()	
 	conn.close()                
 if __name__ == '__main__':
