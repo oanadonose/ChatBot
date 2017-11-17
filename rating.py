@@ -3,7 +3,6 @@ from imdb import IMDb
 i = IMDb()
 def getRating(movie):
 	"""Asks the user for a movie title as input and returns the title and IMDB rating"""
-	movie = input("Enter a movie title: ")
 	movieList = i.search_movie(movie)
 	firstMatch = movieList[0]
 	i.update(firstMatch)

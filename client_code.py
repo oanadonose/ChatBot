@@ -7,7 +7,7 @@ def Main():
     thisSocket = socket.socket()
     thisSocket.connect((host,port))
     #Reading first message to ChatBot
-    message = raw_input(" Message to ChatBot: ")
+    message = input(" Message to ChatBot: ")
     #Continue conversation with ChatBot until end is types
     while message != "end":
     #send message to Chatbot
@@ -17,7 +17,7 @@ def Main():
                         #Print message from ChatBot
                         print('Message Received from ChatBot: '+RMess)
                         #Get user message to ChatBot
-                        message = raw_input(" Message to  ChatBot: ")
+                        message = input(" Message to  ChatBot: ")
     #Close Socket	
     thisSocket.close()
     #Display conversation is over
