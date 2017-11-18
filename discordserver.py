@@ -19,6 +19,7 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
     filmIDSearch = 0
     castSearch = 0
     castNumPull = 0
+    titleStore = ''
     ##################################################
 
 
@@ -62,11 +63,11 @@ def on_message(message):
         elif gV.castNumPull == 1:
             gV.castNumPull = 0
             gV.castSearch = 1
-            titleStore = receiveMess
+            gV.titleStore = receiveMess
             returnMess = "How many cast members do you want listed? "
         elif gV.castSearch == 1:
             castNum = receiveMess
-            returnMess = str(castGet(titleStore,int(castNum)))
+            returnMess = str(castGet(gV.titleStore,int(castNum)))
             gV.castSearch = 0
         elif gV.flagSearch == 1 and gV.flagMovie == 1 and gV.flagID == 1: #User asking for movie ID
             gV.filmIDSearch = 1 #Starts asking user for film title
@@ -83,8 +84,5 @@ def on_message(message):
 
 
         yield from client.send_message(message.channel, returnMess)
-        print(receiveMess)
-        print(gV.filmIDSearch)
-        print(type(receiveMess))
 
 client.run('MzgxMDM3NzAyNzEzNDQyMzA0.DPBmiA.74kzIvLmGPBXIP2Hm0wpHr6h3_k')
