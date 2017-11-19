@@ -47,19 +47,18 @@ def roleDict(movieTitle):
 	finally:
 		return roleDict	
 
-"""Dependent on movieSearch function, takes movie title as input and returns actorNumDict, a full dictionary of a specified number of cast members, with their role as the value"""
-def actorNumDict(movieTitle, endVar=5):
+"""Dependent on movieSearch function, takes movie title as input and a number of actors, returns a string with the format 'ACTOR as ROLE'"""
+def actorNum(movieTitle, endVar=5):
+	castStr = ""
+	numCount = 0	
 	i = IMDb(accessSystem='http')
-	castList = [] #Creates an empty list
 	movieID = movieSearch(movieTitle) #Pulls movieID from movieSearch func
-	movie = i.get_movie(movieID) 
-	for i in range(0,int(endVar)): #Pulls first 5 actors and adds to list
-		actorNumDict = {}
-		cast = movie.get('cast')
-		try:
-			for actor in cast[:int(endVar)]:
-				actorName = actor['name']
-				actorRole = actor.currentRole
-				actorNumDict ["{0}".format(actor['name'])] = "{0}".format(actorRole)
-		finally:
-			return actorNumDict
+	movie = i.get_movie(movieID)  #Pulls actors
+	cast = movie.get('cast')
+	for actor in cast[0:int(endVar)]:
+		if numCount == 0:
+			castStr = castStr + "{0} as {1}".format(actor['name'], actor.currentRole)
+			numCount = numCount + 1
+		else: 
+			castStr = castStr + "\n" + "{0} as {1}".format(actor['name'], actor.currentRole)
+	return castStr	
