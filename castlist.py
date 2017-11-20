@@ -24,7 +24,7 @@ def castGet(movieTitle):
 	return castList
 
 #Testing
-title = raw_input('Input Title ') 
+title = input('Input Title ') 
 test = movieSearch(title)
-print test
-print castGet(title)
+print (test)
+print (castGet(title))

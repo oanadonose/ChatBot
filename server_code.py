@@ -72,7 +72,7 @@ def Main():
                      returnMess = GREETINGS(receiveMess)
                 else: 
                     returnMess = "Unassigned" #Added to do some error checking. 
-                print returnMess                
+                print (returnMess)                
                 conn.send(returnMess.encode())                             
     conn.close()                
 if __name__ == '__main__':
