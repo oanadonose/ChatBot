@@ -4,7 +4,7 @@ from MovieID import movieSearch
 import discord
 import asyncio
 from castlist import castGet
-from castlist import actorDict
+from castlist import roleSearch
 
 client = discord.Client()
 class gV(): #Defines the class of globalVariables, must start any refernece to these variables with gV.
@@ -80,7 +80,7 @@ def on_message(message):
 			gV.flagSearch = 0
 			gV.flagCast = 0
 		elif gV.flagWho == 1 and gV.flagPlay ==1: #If ask for specific actor's role in film
-			returnMess = roleSearch(str(receiveMess))
+			returnMess = (str(roleSearch(receiveMess)))
 			gV.flagWho = 0
 			gV.flagPlay = 0
 		elif gV.flagSearch == 1 and gV.flagMovie == 1 and gV.flagID == 1: #User asking for movie ID
