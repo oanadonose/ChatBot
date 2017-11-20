@@ -102,14 +102,14 @@ def on_message(message):
 #Team member selection to allow individual testing.
 teamMember = input ("Who are you? ")
 if teamMember == "Luke":
-	client.run('MzgxMDM3NzAyNzEzNDQyMzA0.DPBmiA.74kzIvLmGPBXIP2Hm0wpHr6h3_k')
+	client.run('MzgxMDM3NzAyNzEzNDQyMzA0.DPBmiA.74kzIvLmGPBXIP2Hm0wpHr6h3_k') #LUKE
 elif teamMember == "Rob":
-	client.run('PUT BOT TOKEN HERE')
+	client.run('PUT BOT TOKEN HERE') #ROB
 elif teamMember == "Charlie":
-	client.run('PUT BOT TOKEN HERE')
+	client.run('PUT BOT TOKEN HERE') #CHARLIE
 elif teamMember == "Oana":
-	client.run('PUT BOT TOKEN HERE')
+	client.run('PUT BOT TOKEN HERE') #OANA
 elif teamMember == "Andreea":
-	client.run('PUT BOT TOKEN HERE')
+	client.run('PUT BOT TOKEN HERE') #ANDREEA
 else:
 	print("Unknown user, type either: Luke, Rob, Charlie, Oana or Andreea")
