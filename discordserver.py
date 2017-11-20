@@ -99,4 +99,17 @@ def on_message(message):
 
 		yield from client.send_message(message.channel, returnMess)
 
-client.run('MzgxMDM3NzAyNzEzNDQyMzA0.DPBmiA.74kzIvLmGPBXIP2Hm0wpHr6h3_k')
+#Team member selection to allow individual testing.
+teamMember = input ("Who are you? ")
+if teamMember == "Luke":
+	client.run('MzgxMDM3NzAyNzEzNDQyMzA0.DPBmiA.74kzIvLmGPBXIP2Hm0wpHr6h3_k')
+elif teamMember == "Rob":
+	client.run('PUT BOT TOKEN HERE')
+elif teamMember == "Charlie":
+	client.run('PUT BOT TOKEN HERE')
+elif teamMember == "Oana":
+	client.run('PUT BOT TOKEN HERE')
+elif teamMember == "Andreea":
+	client.run('PUT BOT TOKEN HERE')
+else:
+	print("Unknown user, type either: Luke, Rob, Charlie, Oana or Andreea")
