@@ -15,4 +15,4 @@ def directorGet(movieTitle):
 		directorListStr.append(appendName)
 		strDirector = str(directorListStr).replace("[","").replace("]","").replace("'","")
 	return (numberOfDirectors,strDirector)
-print(directorGet("Lucifer"))
+#print(directorGet("Lucifer"))

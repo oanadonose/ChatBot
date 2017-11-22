@@ -15,4 +15,4 @@ def writerGet(movieTitle):
 		writerListStr.append(appendName)
 		strWriter = str(writerListStr).replace("[","").replace("]","").replace("'","")
 	return (numberOfWriters,strWriter)
-print(writerGet("Lucifer"))
+#print(writerGet("Lucifer"))

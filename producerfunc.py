@@ -15,4 +15,4 @@ def producerGet(movieTitle):
 		producerListStr.append(appendName)
 		strproducer = str(producerListStr).replace("[","").replace("]","").replace("'","")
 	return (numberOfproducers,strproducer)
-print(producerGet("Lucifer"))
+#print(producerGet("Lucifer"))
