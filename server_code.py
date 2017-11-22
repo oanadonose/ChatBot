@@ -69,31 +69,7 @@ def Main():
                 if any(word in receiveWords for word in castTerms):
                     flagCast = 1
                 #############################################
-
-
-                def GREETINGS(receiveMess):
-                    for word in receiveMess:
-                        if word.lower() in GreetingsKeywords:
-                            greeting = 1
-                            response = random.choice(GreetingsResponses)
-                            return response
-                              
-                def GOODBYES(receiveMess):
-                    for word in receiveMess:
-                        if word.lower() in GoodbyeKeywords:
-                            goodbye = 1
-                            response = random.choice(GoodbyeResponses)
-                            return response
-                stringToList(receiveMess)
-                if (GOODBYES(receiveMess)):
-                     returnMess = GOODBYES(receiveMess)
-                elif (GREETINGS(receiveMess)):
-                     returnMess = GREETINGS(receiveMess)
-                else: 
-                    returnMess = "Unassigned" #Added to do some error checking. 
-                print (returnMess)                
-                conn.send(returnMess.encode())                             
-                conn.close()                
+        
 
                 #################Responses#################
                 if filmIDSearch == 1: #If asking user for movie title for movieID 
