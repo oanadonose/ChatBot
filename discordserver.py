@@ -114,7 +114,7 @@ elif teamMember == "Rob":
 elif teamMember == "Charlie":
 	client.run('MzgyODYxMzI5Nzc5OTE2ODAw.DPb31g.oa5a949IIMDIZQZzvYbdtFZ9Ouc') #CHARLIE
 elif teamMember == "Oana":
-	client.run('PUT BOT TOKEN HERE') #OANA
+	client.run('MzgyODc3NDU4ODM3NTM2Nzc0.DPcF9Q.36FobsXCFEuUlSGPfV8ar28wVo8') #OANA
 elif teamMember == "Andreea":
 	client.run('PUT BOT TOKEN HERE') #ANDREEA
 elif teamMeber == "Ibk":
