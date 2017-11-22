@@ -1,6 +1,6 @@
 from imdb import IMDb
 from MovieID import movieSearch
-from castlistOld import castGet
+from castlist import castGet
 i = IMDb()
 
 #Testing------------------------------------------------------------------------------------------------
