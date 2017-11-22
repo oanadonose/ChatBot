@@ -112,7 +112,7 @@ if teamMember == "Luke":
 elif teamMember == "Rob":
 	client.run('PUT BOT TOKEN HERE') #ROB
 elif teamMember == "Charlie":
-	client.run('PUT BOT TOKEN HERE') #CHARLIE
+	client.run('MzgyODYxMzI5Nzc5OTE2ODAw.DPb31g.oa5a949IIMDIZQZzvYbdtFZ9Ouc') #CHARLIE
 elif teamMember == "Oana":
 	client.run('PUT BOT TOKEN HERE') #OANA
 elif teamMember == "Andreea":
