@@ -2,11 +2,14 @@ from imdb import IMDb
 from MovieID import movieSearch
 ia = IMDb()
 
-def directorGet(movieTitle):
-	"""Takes movie title as input and returns a tuple of the no. of directors and a list containing all directors' names"""
+#movieTitle = input("input title : ")
+
+#movieID = movieSearch(movieTitle)
+#movie = ia.get_movie(movieID)
+
+def directorGet(movie):
+	"""Takes movie OBJECT as input and returns a tuple of the no. of directors and a list containing all directors' names"""
 	directorListStr = []
-	movieID = movieSearch(movieTitle)
-	movie = ia.get_movie(movieID)
 	directorList = movie['director']
 	numberOfDirectors = len(directorList)
 	for i in range(0,numberOfDirectors):
