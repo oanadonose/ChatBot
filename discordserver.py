@@ -5,6 +5,7 @@ import discord
 import asyncio
 from castlist import castGet
 from castlist import roleSearch
+from moreInformation2 import moreInfo
 
 client = discord.Client()
 class gV(): #Defines the class of globalVariables, must start any refernece to these variables with gV.
@@ -15,12 +16,15 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	castTerms = ['cast']
 	whoTerms = ['who']
 	playTerms = ['play']
+	tvSeriesTerms = ['series','tvseries','show']
+	episodeTerms = ['episode']
 	##################################################
 
 	####################Defaults######################
 	filmIDSearch = 0
 	castSearch = 0
 	castNumPull = 0
+	specificMovieSearch = 0
 	titleStore = ''
 	##################################################
 
@@ -87,11 +91,20 @@ def on_message(message):
 			elif gV.flagSearch == 1 and gV.flagMovie == 1 and gV.flagID == 1: #User asking for movie ID
 				gV.filmIDSearch = 1 #Starts asking user for film title
 				returnMess = "What movie ID would you like to search for? " 
+				gV.flagSearch = 0
+				gV.flagMovie = 0
+				gV.flagID = 0
 			elif gV.flagSearch == 1 and gV.flagCast == 1: 
 				gV.castNumPull = 1
 				returnMess = "What movie would you like to search for the cast members of?"
 			elif gV.flagSearch == 1 and gV.flagMovie == 1: 
-				returnMess = 'Search Pass' 
+				returnMess = "What movie would you like to search for?"
+				gV.specificMovieSearch = 1
+				gV.flagSearch = 0
+				gV.flagMovie = 0
+			elif gV.specificMovieSearch == 1:
+				returnMess = str(moreInfo(receiveMess))
+				gV.specificMovieSearch = 0
 			elif receiveMess == 'debug':
 				returnMess = receiveMess + receiveWords
 			else:
