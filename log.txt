@@ -1,3 +1,0 @@
-
-Server: princess
-Client: How many cast members do you want listed? 

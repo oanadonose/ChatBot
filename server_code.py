@@ -3,8 +3,9 @@ import time
 import random
 from imdb import imdb
 from MovieID import movieSearch
-from castlist import castGet
-
+#from castlist import castGet
+from get_top_bottom_movies import top250
+from get_top_bottom_movies import bottom100
 i=imdb.IMDb(accessSystem='http')
  
 def Main():
@@ -27,7 +28,7 @@ def Main():
     movieTerms = ['movie','film']
     idTerms = ['id']    
     castTerms = ['cast']    
-    
+    topbotTerms= ['top']
     ##################################################
 
     ####################Defaults######################
@@ -55,6 +56,7 @@ def Main():
                 flagMovie = 0
                 flagID = 0
                 flagCast = 0
+                flagTop = 0
                 ############################################# 
 
 
@@ -68,6 +70,8 @@ def Main():
                     flagID = 1
                 if any(word in receiveWords for word in castTerms):
                     flagCast = 1
+                if any(word in receiveWords for word in topbotTerms):
+                    flagTop = 1
                 #############################################
         
 
@@ -92,6 +96,8 @@ def Main():
                     returnMess = "What movie would you like to search for the cast members of?"
                 elif flagSearch == 1 and flagMovie == 1: 
                     returnMess = 'Search Pass' 
+                elif flagTop == 1 and flagMovie == 1:
+                    returnMess=top250
                 else:
                     returnMess = "I'm sorry, I didn't understand." #Error catch
                 ###################################################

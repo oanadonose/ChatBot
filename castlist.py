@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from imdb import IMDb
 from MovieID import movieSearch
 ia = IMDb()
@@ -29,7 +28,7 @@ title = input('Input Title ')
 test = movieSearch(title)
 print (test)
 print (castGet(title))
-=======
+
 from imdb import IMDb
 from MovieID import movieSearch
 
@@ -113,4 +112,4 @@ def roleSearch(receiveMess):
 		actorPull = actorPull.replace("who ","").replace("does ","").replace(" play","")
 		actorDictPull = actorDict(filmPull)
 		return str(actorDictPull[actorPull])
->>>>>>> 14c07d478f719a90b356c870139fd1569e762367
+
