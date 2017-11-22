@@ -97,7 +97,7 @@ def on_message(message):
 			else:
 				returnMess = "I'm sorry, I didn't understand." #Error catch
 		except Exception as e :
-			e.args = (e.args[0] + ' happened',)
+			e.args = (e.args[0] + '',)
 			returnMess = "An error occured"
 			yield from client.send_message(message.channel, returnMess)
 			raise
