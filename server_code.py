@@ -1,6 +1,11 @@
 import socket
 import time
- 
+import random
+from imdb import imdb
+from MovieID import movieSearch
+from castlist import castGet
+
+i=imdb.IMDb(accessSystem='http')
  
 def Main():
     #Give ChatBot server an IP address and port
@@ -15,42 +20,56 @@ def Main():
     conn, addr = thisSocket.accept()
     #print Connect ip address
     print ("The Connection ip is : " + str(addr))
-    #Repear forever
+    #Repeat forever
+    
+    ##################List of terms####################
+    searchTerms = ['search','find']
+    movieTerms = ['movie','film']
+    idTerms = ['id']    
+    castTerms = ['cast']    
+    
+    ##################################################
+
+    ####################Defaults######################
+    filmIDSearch = 0
+    castSearch = 0
+    castNumPull = 0
+    titleStore = ''
+    ##################################################
     while True:
                 #Receive info from client
-                receiveMess = conn.recv(1024).decode()
+                
+                receiveMessDecode = conn.recv(1024).decode()
+                receiveMess = receiveMessDecode.lower() #Converts input to lowercase
+                log = open ("log.txt","w")
+                log.write("\n" + "Server: " + receiveMess)
+                receiveWords = receiveMess.split()
                 #if no info from client end loop
+                
+                #If no message recieved
                 if not receiveMess:
                                     break
-                #Print info from client
-                print ("Message from receiveMess to Chatbot : " + str(receiveMess))
-                #set return message
                 
-                
-                import random
-                from imdb import imdb
-                i=imdb.IMDb(accessSystem='http')
+                #################Flag Resets#################
+                flagSearch = 0
+                flagMovie = 0
+                flagID = 0
+                flagCast = 0
+                ############################################# 
 
-                GreetingsKeywords = ["hi","hello","sup","whatsup","greetings"]
-                GreetingsResponses = ["hi","*stares at you blankly*","hello","greetings","good day","hey"]
-                GoodbyeKeywords = ["bye","bai","cya","peace"]
-                GoodbyeResponses = ["bye","cya","peace","good day"]
-                BestKeywords = ["best","recommendation","good","interesting"]
-                  
 
-                greeting=0
-                goodbye=0
-                countBest=0
 
-                def stringToList(receiveMess):
-                    receiveMess = receiveMess.split()
-                    for word in receiveMess:
-                        for character in word:
-                            wordPlace = receiveMess.index(word)
-                            if character=="?" or character=="." or character=="," or character=="!":
-                                wordGood = word.replace(character,"")
-                                receiveMess[wordPlace] = wordGood
-                    return receiveMess
+                #################Flag Settings#################
+                if any(word in receiveWords for word in searchTerms):
+                    flagSearch = 1
+                if any(word in receiveWords for word in movieTerms):
+                    flagMovie = 1
+                if any(word in receiveWords for word in idTerms):
+                    flagID = 1
+                if any(word in receiveWords for word in castTerms):
+                    flagCast = 1
+                #############################################
+
 
                 def GREETINGS(receiveMess):
                     for word in receiveMess:
@@ -74,7 +93,43 @@ def Main():
                     returnMess = "Unassigned" #Added to do some error checking. 
                 print (returnMess)                
                 conn.send(returnMess.encode())                             
+                conn.close()                
+
+                #################Responses#################
+                if filmIDSearch == 1: #If asking user for movie title for movieID 
+                    returnMess = str(movieSearch(str(receiveMess)))
+                    filmIDSearch = 0
+                elif castNumPull == 1:
+                    castNumPull = 0
+                    castSearch = 1
+                    titleStore = receiveMess
+                    returnMess = "How many cast members do you want listed? "
+                elif castSearch == 1:
+                    castNum = receiveMess
+                    returnMess = str(castGet(str(titleStore),int(castNum)))
+                    castSearch = 0
+                elif flagSearch == 1 and flagMovie == 1 and flagID == 1: #User asking for movie ID
+                    filmIDSearch = 1 #Starts asking user for film title
+                    returnMess = "What movie ID would you like to search for? " 
+                elif flagSearch == 1 and flagCast == 1: 
+                    castNumPull = 1
+                    returnMess = "What movie would you like to search for the cast members of?"
+                elif flagSearch == 1 and flagMovie == 1: 
+                    returnMess = 'Search Pass' 
+                else:
+                    returnMess = "I'm sorry, I didn't understand." #Error catch
+                ###################################################
+
+                    #Print info from client
+                print ("Message from User to Chatbot : " + str(receiveMess))
+                    #set return message
+                log.write("\n" + "Client: " + returnMess)
+                conn.send(returnMess.encode())   
+                print(returnMess)                         
+    log.close() 
     conn.close()                
+
 if __name__ == '__main__':
-         Main()
-          
+            Main()
+
+
