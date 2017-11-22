@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+#<<<<<<< HEAD
+>>>>>>> 13008c1b895f1ed638e7a9645ac9eb8c80ed0639
 from imdb import IMDb
 from MovieID import movieSearch
 ia = IMDb()
@@ -24,11 +28,19 @@ def castGet(movieTitle):
 	return castList
 
 #Testing
+<<<<<<< HEAD
 title = input('Input Title ') 
 test = movieSearch(title)
 print (test)
 print (castGet(title))
 
+=======
+#title = input('Input Title ') 
+#test = movieSearch(title)
+#print (test)
+#print (castGet(title))
+#=======
+>>>>>>> 13008c1b895f1ed638e7a9645ac9eb8c80ed0639
 from imdb import IMDb
 from MovieID import movieSearch
 
@@ -112,4 +124,8 @@ def roleSearch(receiveMess):
 		actorPull = actorPull.replace("who ","").replace("does ","").replace(" play","")
 		actorDictPull = actorDict(filmPull)
 		return str(actorDictPull[actorPull])
+<<<<<<< HEAD
 
+=======
+#>>>>>>> 14c07d478f719a90b356c870139fd1569e762367
+>>>>>>> 13008c1b895f1ed638e7a9645ac9eb8c80ed0639
