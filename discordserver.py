@@ -111,5 +111,7 @@ elif teamMember == "Oana":
 	client.run('PUT BOT TOKEN HERE') #OANA
 elif teamMember == "Andreea":
 	client.run('PUT BOT TOKEN HERE') #ANDREEA
+elif teamMeber == "Ibk":
+	client.run('PUT BOT TOKEN HERE') #IBK
 else:
-	print("Unknown user, type either: Luke, Rob, Charlie, Oana or Andreea")
+	print("Unknown user, type either: Luke, Rob, Charlie, Oana, Ibk or Andreea")
