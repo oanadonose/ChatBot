@@ -1,18 +1,27 @@
 from imdb import IMDb
 from MovieID import movieSearch
-from castlist import castGet
+from castlistOld import castGet
 i = IMDb()
 
+#Testing------------------------------------------------------------------------------------------------
 seriesTitle = input(" Input a tv series title. ")
+episodeNumber = int(input("Episode number ? "))
+seasonNumber = int(input("Season number ? "))
+#-------------------------------------------------------------------------------------------------------
 
-#episodeNumber = int(input("Episode number ? "))
-#seasonNumber = int(input("Season number ? "))
 seriesID = movieSearch(seriesTitle)
+
 m = i.get_movie(str(seriesID))
 i.update(m, 'episodes') 
 e=m['episodes']
+
 #--------------------------------------
-def seasonsEpisodesCounter(seriesTitle):
+def seasonsEpisodesCounter(seriesTitle):  #if kind===tv series
+
+	seriesID = movieSearch(seriesTitle)
+	m = i.get_movie(str(seriesID))
+	i.update(m, 'episodes') 
+	e=m['episodes']
 	
 
 	seasonCount = 0
@@ -30,15 +39,17 @@ def seasonsEpisodesCounter(seriesTitle):
 	return (seasonCount, episodeCount)
 
 #print(seasonsEpisodesCounter(seriesTitle)) #test
-def listOfEpisodes(episodes):
-for k,v in episodes.items():#k is the key of the dict--season_number(also a dictionary).#v is the value--#episode_number:movie object)
-	message = "season " + str(k) +"\n"
-	for x,y in v.items():#x is the key of the dict--episode-number.#y is the value--movei object
-		message = message + " episode " + str(x)
-		message = message + ": " + y['title']
-		message = message + "\n"
+def listOfEpisodes(episodes): #if kind===tv series
+	for k,v in episodes.items():#k is the key of the dict--season_number(also a dictionary).#v is the value--#episode_number:movie object)
+		message = "season " + str(k) +"\n"
+		for x,y in v.items():#x is the key of the dict--episode-number.#y is the value--movei object
+			message = message + " episode " + str(x)
+			message = message + ": " + y['title']
+			message = message + "\n"
 	return message
 #-------------------------------------------------------------------------------------------------------------
+
+
 
 moreInfo = input("Would you like to see more info about a specific episode? y/n ")
 if moreInfo=="y":
