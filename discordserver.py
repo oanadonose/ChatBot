@@ -123,7 +123,7 @@ teamMember = input ("Who are you? ")
 if teamMember == "Luke":
 	client.run('MzgxMDM3NzAyNzEzNDQyMzA0.DPBmiA.74kzIvLmGPBXIP2Hm0wpHr6h3_k') #LUKE
 elif teamMember == "Rob":
-	client.run('PUT BOT TOKEN HERE') #ROB
+	client.run('MzgyOTgwNzIyMDkwMzExNjgx.DPdmJQ.p6aW2L0PmN9zQAMvQeqwumbFlhA') #ROB
 elif teamMember == "Charlie":
 	client.run('MzgyODYxMzI5Nzc5OTE2ODAw.DPb31g.oa5a949IIMDIZQZzvYbdtFZ9Ouc') #CHARLIE
 elif teamMember == "Oana":
