@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import random
 from imdb import imdb
 from MovieID import movieSearch
@@ -369,4 +368,3 @@ elif teamMeber == "Ibk":
     client.run('PUT BOT TOKEN HERE') #IBK
 else:
     print("Unknown user, type either: Luke, Rob, Charlie, Oana, Ibk or Andreea")
->>>>>>> 3d71cec8bad7970780df47843256d876b6c545d3
