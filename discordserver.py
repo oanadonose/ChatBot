@@ -215,7 +215,7 @@ from Companyinfo import companyInfo
 
 client = discord.Client()
 ia=IMDb()
-class gV(): #Defines the class of globalVariables, must start any refernece to these variables with gV.
+class gV(): #Defines the class of default variables and flags, must start any refernece to these variables with gV.
     ##################List of terms####################
     searchTerms = ['search','find']
     movieTerms = ['movie','film']
