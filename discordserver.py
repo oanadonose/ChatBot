@@ -6,6 +6,7 @@ import asyncio
 from castlist import castGet
 from castlist import roleSearch
 from moreInformation2 import moreInfo
+from tvSeries import seasonsEpisodesCounter, listOfEpisodes, infoAboutEpisode
 
 client = discord.Client()
 class gV(): #Defines the class of globalVariables, must start any refernece to these variables with gV.
@@ -26,6 +27,11 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	castNumPull = 0
 	specificMovieSearch = 0
 	titleStore = ''
+	tvSeriesSearch = 0
+	series = ''
+	wrongChoice = "Why did you choose that? There were only two options!!!!"
+	seasonNumber = 0
+	episodeNumber = 0
 	##################################################
 
 
@@ -36,6 +42,15 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	flagCast = 0
 	flagPlay = 0
 	flagWho = 0
+	flagSeries = 0
+	flagList = 0
+	flagCounter = 0
+	flagYN1 = 0
+	flagYN2 = 0
+	flagN1 = 0
+	flagN2 = 0
+	flagSeriesSeason = 0
+	flagSeriesEpisode = 0
 	#############################################
 
 @client.event #Prints a ready message to terminal
@@ -69,6 +84,8 @@ def on_message(message):
 				gV.flagWho = 1
 			if any(word in receiveWords for word in gV.playTerms):
 				gV.flagPlay = 1
+			if any(word in receiveWords for word in gV.tvSeriesTerms or gV.episodeTerms):
+				gV.flagSeries = 1
 			#############################################
 			if gV.filmIDSearch == 1: #If asking user for movie title for movieID 
 				returnMess = str(movieSearch(receiveMess))
@@ -105,6 +122,54 @@ def on_message(message):
 			elif gV.specificMovieSearch == 1:
 				returnMess = str(moreInfo(receiveMess))
 				gV.specificMovieSearch = 0
+			elif gV.flagSeries == 1:
+				returnMess = str("what is the series that you'd like to search for?")
+				gV.flagSeries = 0
+				gV.flagCounter = 1
+			elif gV.flagCounter == 1:
+				gV.series = str(receiveMess)
+				seasons,episodes = seasonsEpisodesCounter(receiveMess)
+				returnMess = "The series you've searched for has " + str(seasons) + " `seasons` and " + str(episodes) + " `episodes`.\nWould you like to see a list of the seasons and episodes?(y/n)"
+				gV.flagYN1 = 1  #keeps track of the question with yes/no 
+				gV.flagCounter = 0
+			elif gV.flagYN1 == 1:
+				if receiveMess == "y":
+					returnMess = str(listOfEpisodes(gV.series))
+				elif receiveMess == "n":
+					gV.flagN1 = 1 #keeps track of 'no' answer
+					returnMess = "Ok.Would you like to see info about a specific episode? (y/n)"
+					#gV.flagYN3 = 1 #declare
+				else:
+					returnMess = gV.wrongChoice
+				gV.flagYN1 = 0 
+			elif gV.flagN1 == 1:
+				if receiveMess == "y":
+					returnMess = "Ok. Season number? "
+					gV.flagSeriesSeason = 1 
+				elif receiveMess == "n":
+					returnMess = "ok no probs"
+				else:
+					returnMess = gV.wrongChoice
+				gV.flagN1 = 0
+			elif gV.flagSeriesSeason == 1:
+				if receiveMess.isdigit():
+					gV.seasonNumber = int(receiveMess)
+					returnMess = "Episode Number? "
+					gV.flagSeriesEpisode = 1 
+				else:
+					returnMess = "You should have input a digit. "
+				gV.flagSeriesSeason = 0
+			elif gV.flagSeriesEpisode == 1:
+				if receiveMess.isdigit():
+					gV.episodeNumber = int(receiveMess)
+					try:
+						returnMess = infoAboutEpisode(gV.series, gV.seasonNumber,gV.episodeNumber)
+					except KeyError:
+						returnMess = "That doesn't exist."
+				gV.flagSeriesEpisode = 0
+			elif gV.flagList == 1:
+				returnMess = listOfEpisodes(gV.series)
+				gV.flagList = 0
 			elif receiveMess == 'debug':
 				returnMess = receiveMess + receiveWords
 			else:
