@@ -12,7 +12,7 @@ i = IMDb()
 #seriesID = movieSearch(seriesTitle)
 #m = i.get_movie(str(seriesID))
 #i.update(m, 'episodes') 
-#e=m['episodes']
+#episodes=m['episodes']
 
 #--------------------------------------
 def seasonsEpisodesCounter(seriesTitle):  #if kind===tv series
@@ -37,18 +37,31 @@ def seasonsEpisodesCounter(seriesTitle):  #if kind===tv series
 	#message = message + " and "+ str(episodeCount) + " episodes."
 	return (seasonCount, episodeCount)
 
+#def listOfEpisodes(episodes):
+#	message = ""
+#	for k,v in episodes.items():
+#		for x,y in v.items():
+#			message = message + str(k) + str(x)
+#listOfEpisodes(episodes)
 #print(seasonsEpisodesCounter(seriesTitle)) #test
-def listOfEpisodes(episodes): #if kind===tv series
+def listOfEpisodes(seriesTitle):#if kind===tv series
+	seriesID = movieSearch(seriesTitle)
+	m = i.get_movie(str(seriesID))
+	i.update(m, 'episodes') 
+	episodes=m['episodes'] 
+	message =""
 	for k,v in episodes.items():#k is the key of the dict--season_number(also a dictionary).#v is the value--#episode_number:movie object)
-		message = "season " + str(k) +"\n"
+		message = message + "`season` " + str(k) +"\n"
 		for x,y in v.items():#x is the key of the dict--episode-number.#y is the value--movei object
-			message = message + " episode " + str(x)
+			message = message + " `episode` " + str(x)
 			message = message + ": " + y['title']
 			message = message + "\n"
 	return message
 #-------------------------------------------------------------------------------------------------------------
-
+#print (listOfEpisodes(episodes))
 #print(listOfEpisodes(seriesTitle))
+#--------------------------------------------------------------------------------------------------------------
+
 
 def infoAboutEpisode(seriesTitle,seasonNumber,episodeNumber):
 	seriesID = movieSearch(seriesTitle)
