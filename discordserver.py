@@ -23,6 +23,7 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	whoTerms = ['who']
 	playTerms = ['play']
 	tvSeriesTerms = ['series','tvseries','show']
+	episodeTerms = ['episode','episodes']
 	directorTerms = ['director','directed']
         companyTerms=['company']
 	recoTerms =['reco', 'recommendation','recommendate','recommendated','recommende']
