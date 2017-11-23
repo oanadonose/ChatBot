@@ -225,8 +225,5 @@ elif teamMember == "Andreea":
 elif teamMeber == "Ibk":
 	client.run('PUT BOT TOKEN HERE') #IBK
 else:
-<<<<<<< HEAD
+
 	print("Unknown user, type either: Luke, Rob, Charlie, Oana, Ibk or Andreea")
-=======
-	print("Unknown user, type either: Luke, Rob, Charlie, Oana, Ibk or Andreea")
->>>>>>> 34838f5d00bf82b64bbcf153feec815f4ae48f78
