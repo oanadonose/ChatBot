@@ -3,15 +3,15 @@ from imdb import imdb
 from MovieID import movieSearch
 import discord
 import asyncio
+import random
 from castlist import castGet
 from castlist import roleSearch
 from moreInformation2 import moreInfo
 from tvSeries import seasonsEpisodesCounter, listOfEpisodes, infoAboutEpisode
-#from directorrr import directorGet
-#from Companyinfo import companyInfo
-from MovieSearchInfo import newMovieDetails
-from NewActorSearch import actorSearch
-
+from directorrr import directorGet
+from Companyinfo import companyInfo
+from Top10movies import get_top10movies
+from Top10movies import get_random10movies
 
 client = discord.Client()
 class gV(): #Defines the class of globalVariables, must start any refernece to these variables with gV.
@@ -24,9 +24,8 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	playTerms = ['play']
 	tvSeriesTerms = ['series','tvseries','show']
 	directorTerms = ['director','directed']
-	companyTerms=['company']
-	detailTerms =['info','information', 'plot', 'story']
-	actorTerms =['actor', 'actress']
+        companyTerms=['company']
+	recoTerms =['reco', 'recommendation','recommendate','recommendated','recommende']
 	##################################################
 
 	####################Defaults######################
@@ -42,9 +41,7 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	episodeNumber = 0
 	getdire = 0
 	getTop = 0
-	company = 0
-	detailsSearch = 0
-	actorSearch = 0
+        company = 0
 	##################################################
 
 
@@ -65,11 +62,10 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	flagSeriesSeason = 0
 	flagSeriesEpisode = 0
 	flagReco = 0
-	flagDirect = 0
-	flagTop = 0
-	flagCompany = 0
-	flagDetails = 0
-	flagActor = 0
+        flagDirect = 0
+        flagTop = 0
+        flagCompany = 0
+	flagTop2 = 0
 	#############################################
 
 @client.event #Prints a ready message to terminal
@@ -106,32 +102,41 @@ def on_message(message):
 			if any(word in receiveWords for word in gV.tvSeriesTerms or gV.episodeTerms):
 				gV.flagSeries = 1
 			if any(word in receiveWords for word in gV.directorTerms):
-				gV.flagDirect = 1
-			if any(word in receiveWords for word in gV.companyTerms):
-				gV.flagCompany = 1
-			if any(word in receiveWords for word in gV.detailTerms):
-				gV.flagDetails = 1
+                                gV.flagDirect = 1
+                        if any(word in receiveWords for word in gV.companyTerms):
+                                gV.flagCompany = 1
+			if any(word in receiveWords for word in gV.recoTerms):
+                		gV.flagTop = 1	
+				
 			#############################################
 			if gV.filmIDSearch == 1: #If asking user for movie title for movieID 
 				returnMess = str(movieSearch(receiveMess))
 				gV.filmIDSearch = 0
+		        elif gV.flagTop == 1:
+                		returnMess="Do you want the first 10 movies or 10 random movies from the top of 250 movies?first 10/random"
+               		 	gV.flagTop2 = 1
+                		gV.flagTop = 0   
+            		elif gV.flagTop2 == 1:
+                		if receiveMess== "first10":
+                    			returnMess= str(get_top10movies())
+                		elif receiveMess== "random":
+                    			returnMess=str(get_random10movies())
+               			else:
+                    			returnMess= "Sorry, please respect the input forms"	
+				gV.flagTop2 = 0
 			elif gV.flagDirect == 1:
-				gV.getdire=1
-				returnMess="What movie are you interested to know the director?InputID"
-			elif gV.flagDetails == 1 and gV.flagMovie == 1:
-				returnMess = newMovieDetails(gV.detailsSearch)
-				gV.flagDetails = 0
-				gV.flagMovie = 0
+                		gV.getdire=1
+                		returnMess="What movie are you interested to know the director?InputID"	
 			elif gV.flagCompany == 1:
-				returnMess="What movie are your looking for company info?"
-				gV.company = 1
-				gV.flagCompany =0
-			elif gV.company == 1:
-				eturnMess=str(companyInfo(receiveMess))
-				gV.company=0
-			elif gV.getdire == 1:
-				returnMess =str(directorGet(receiveMess))
-				gV.getdire =0	
+                		returnMess="What movie are your looking for company info?"
+                		gV.company = 1
+                		gV.flagCompany =0
+            		elif gV.company == 1:
+               			 returnMess=str(companyInfo(receiveMess))
+              			gV.company=0
+          	        elif gV.getdire == 1:
+               			 returnMess =str(directorGet(receiveMess))
+               		  	gV.getdire =0	
 			elif gV.castNumPull == 1:
 				gV.castNumPull = 0
 				gV.castSearch = 1
