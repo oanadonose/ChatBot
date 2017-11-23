@@ -1,20 +1,14 @@
-<<<<<<< HEAD
-=======
-#<<<<<<< HEAD
->>>>>>> 13008c1b895f1ed638e7a9645ac9eb8c80ed0639
 from imdb import IMDb
 from MovieID import movieSearch
 ia = IMDb()
 
-"""Takes a movie title as input, runs a search and returns the movieID for the first match in the list"""
+'''Takes a dictionary as input, converts all the keys to lowercase and places them as new keys, with the original as the value'''
+def dictConv(dictInput):
+	lowerDict = {} #Empty dict
+	for key in dictInput: #iterates over all keys
+		lowerDict [key.lower()] = key #Fills the new dictionary
+	return lowerDict
 
-#Commented out for testing purposes
-'''def movieSearch(movieTitle):
-	for movie in ia.search_movie(movieTitle):
-		results = ia.search_movie(movieTitle)
-		first = results[0]
-		return first.movieID
-		break'''
 
 """Dependent on movieSearch function, takes movie title as input and returns a list(castList) containing the top 5 cast names"""
 def castGet(movieTitle):
@@ -27,24 +21,8 @@ def castGet(movieTitle):
 		castList.append(appendName)
 	return castList
 
-#Testing
-<<<<<<< HEAD
-title = input('Input Title ') 
-test = movieSearch(title)
-print (test)
-print (castGet(title))
-
-=======
-#title = input('Input Title ') 
-#test = movieSearch(title)
-#print (test)
-#print (castGet(title))
-#=======
->>>>>>> 13008c1b895f1ed638e7a9645ac9eb8c80ed0639
 from imdb import IMDb
 from MovieID import movieSearch
-
-
 """Dependent on movieSearch function, takes movie title as input and returns a list(castList) containing the top 5 cast names"""
 def castGet(movieTitle, endVar=5):
 	i = IMDb(accessSystem='http')
@@ -111,21 +89,22 @@ def actorNum(movieTitle, endVar=5):
 def roleSearch(receiveMess):
 	i = IMDb(accessSystem='http')
 	if "does" not in receiveMess:
-		messSplit = receiveMess.split(" in ")
+		messSplit = receiveMess.lower().split(" in ")
 		charPull = str(messSplit[0])
-		filmPull = str(messSplit[1])
-		charPull = charPull.replace("which ","").replace("actor ","").replace("plays ","").replace("who ","")
-		roleDictPull = roleDict(filmPull)
-		return str(roleDictPull[charPull])
+		filmPull = str(messSplit[1]).replace("?","").replace("!","").replace(".","").replace(",","")
+		charPull = charPull.replace("which ","").replace("Which","").replace("actor ","").replace("plays ","").replace("who ","").replace(", ","").replace("Who ","")
+		roleDictPull = roleDict(filmPull) #Gets the dictionary from film name
+		lowerDict = dictConv(roleDictPull) #Creates a dictionary of lowercase roles against their original versions
+		upperChar = lowerDict[charPull] #Pulls the original version from the lowercase user input
+		return str(roleDictPull[upperChar]) 
 	else:
-		messSplit = receiveMess.split(" in ")
+		messSplit = receiveMess.lower().split(" in ")
 		actorPull = str(messSplit[0])
-		filmPull = str(messSplit[1])
+		filmPull = str(messSplit[1]).replace("?","").replace("!","").replace(".","").replace(", ","")
 		actorPull = actorPull.replace("who ","").replace("does ","").replace(" play","")
+		actorDictPull = actorDict(filmPull) #Gets the dictionary from film name
+		lowerDict = dictConv(actorDictPull) #Creates a dictionary of lowercase actors against their original names
+		upperActor = lowerDict[actorPull] #Pulls the original version from the lowercase user input
+		return str(actorDictPull[upperActor])
 		actorDictPull = actorDict(filmPull)
 		return str(actorDictPull[actorPull])
-<<<<<<< HEAD
-
-=======
-#>>>>>>> 14c07d478f719a90b356c870139fd1569e762367
->>>>>>> 13008c1b895f1ed638e7a9645ac9eb8c80ed0639
