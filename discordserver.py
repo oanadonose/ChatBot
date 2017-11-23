@@ -8,13 +8,16 @@ from castlist import castGet
 from castlist import roleSearch
 from moreInformation2 import moreInfo
 from tvSeries import seasonsEpisodesCounter, listOfEpisodes, infoAboutEpisode
-from directorrr import directorGet
-from Companyinfo import companyInfo
-from Top10movies import get_top10movies
-from Top10movies import get_random10movies
+#from directorrr import directorGet
+#from Companyinfo import companyInfo
+#from Top10movies import get_top10movies
+#from Top10movies import get_random10movies
+from rating import getRating
+from rating import searchKeyword
 
 client = discord.Client()
-class gV(): #Defines the class of globalVariables, must start any refernece to these variables with gV.
+class gV():
+	#Defines the class of globalVariables, must start any refernece to these variables with gV.
 	##################List of terms####################
 	searchTerms = ['search','find']
 	movieTerms = ['movie','film']
@@ -25,9 +28,12 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	tvSeriesTerms = ['series','tvseries','show']
 	episodeTerms = ['episode','episodes']
 	directorTerms = ['director','directed']
-        companyTerms=['company']
+	companyTerms=['company']
 	recoTerms =['reco', 'recommendation','recommendate','recommendated','recommende']
+	ratingTerms = ['rating']
+	keywordTerms = ['about', 'including']
 	##################################################
+
 
 	####################Defaults######################
 	filmIDSearch = 0
@@ -42,7 +48,9 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	episodeNumber = 0
 	getdire = 0
 	getTop = 0
-        company = 0
+	company = 0
+	ratingTitleSearch = 0
+	ratingSearch=0
 	##################################################
 
 
@@ -63,10 +71,12 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	flagSeriesSeason = 0
 	flagSeriesEpisode = 0
 	flagReco = 0
-        flagDirect = 0
-        flagTop = 0
-        flagCompany = 0
+	flagDirect = 0
+	flagTop = 0
+	flagCompany = 0
 	flagTop2 = 0
+	flagRating = 0
+	flagKeyword = 0
 	#############################################
 
 @client.event #Prints a ready message to terminal
@@ -103,46 +113,53 @@ def on_message(message):
 			if any(word in receiveWords for word in gV.tvSeriesTerms or gV.episodeTerms):
 				gV.flagSeries = 1
 			if any(word in receiveWords for word in gV.directorTerms):
-                                gV.flagDirect = 1
-                        if any(word in receiveWords for word in gV.companyTerms):
-                                gV.flagCompany = 1
+				gV.flagDirect = 1
+			if any(word in receiveWords for word in gV.companyTerms):
+				gV.flagCompany = 1
 			if any(word in receiveWords for word in gV.recoTerms):
-                		gV.flagTop = 1	
-				
+				gV.flagTop = 1
+			if any(word in receiveWords for word in gV.ratingTerms):
+				gV.flagRating = 1
+			if any(word in receiveWords for word in gV.keywordTerms):
+				gV.flagKeyword = 1
 			#############################################
 			if gV.filmIDSearch == 1: #If asking user for movie title for movieID 
 				returnMess = str(movieSearch(receiveMess))
 				gV.filmIDSearch = 0
-		        elif gV.flagTop == 1:
-                		returnMess="Do you want the first 10 movies or 10 random movies from the top of 250 movies?first 10/random"
-               		 	gV.flagTop2 = 1
-                		gV.flagTop = 0   
-            		elif gV.flagTop2 == 1:
-                		if receiveMess== "first10":
-                    			returnMess= str(get_top10movies())
-                		elif receiveMess== "random":
-                    			returnMess=str(get_random10movies())
-               			else:
-                    			returnMess= "Sorry, please respect the input forms"	
-				gV.flagTop2 = 0
+			elif gV.flagTop == 1:
+				returnMess="Do you want the first 10 movies or 10 random movies from the top of 250 movies?first 10/random"
+				gV.flagTop2 = 1
+				gV.flagTop = 0   
+			elif gV.flagTop2 == 1:
+				if receiveMess== "first10":
+					returnMess= str(get_top10movies())
+				elif receiveMess== "random":
+					returnMess=str(get_random10movies())
+				else:
+					returnMess= "Sorry, please respect the input forms"	
+					gV.flagTop2 = 0
 			elif gV.flagDirect == 1:
-                		gV.getdire=1
-                		returnMess="What movie are you interested to know the director?InputID"	
+				gV.getdire=1
+				returnMess="What movie are you interested to know the director?InputID"	
 			elif gV.flagCompany == 1:
-                		returnMess="What movie are your looking for company info?"
-                		gV.company = 1
-                		gV.flagCompany =0
-            		elif gV.company == 1:
-               			 returnMess=str(companyInfo(receiveMess))
-              			gV.company=0
-          	        elif gV.getdire == 1:
-               			 returnMess =str(directorGet(receiveMess))
-               		  	gV.getdire =0	
+				returnMess="What movie are your looking for company info?"
+				gV.company = 1
+				gV.flagCompany =0
+			elif gV.company == 1:
+				returnMess=str(companyInfo(receiveMess))
+				gV.company=0
+			elif gV.getdire == 1:
+				returnMess =str(directorGet(receiveMess))
+				gV.getdire =0	
 			elif gV.castNumPull == 1:
 				gV.castNumPull = 0
 				gV.castSearch = 1
 				gV.titleStore = receiveMess
 				returnMess = "How many cast members do you want listed? "
+			elif gV.ratingSearch == 1:
+				gV.ratingSearch = 0
+				gV.flagRating = 0
+				returnMess = str(getRating(str(receiveMess)))
 			elif gV.castSearch == 1:
 				castNum = receiveMess
 				returnMess = str(castGet(gV.titleStore,int(castNum)))
@@ -162,6 +179,8 @@ def on_message(message):
 			elif gV.flagSearch == 1 and gV.flagCast == 1: 
 				gV.castNumPull = 1
 				returnMess = "What movie would you like to search for the cast members of?"
+			elif gV.flagKeyword==1 and gV.flagMovie == 1 and gV.flagSearch == 1:
+				returnMess = str(searchKeyword(str(receiveMess)))
 			elif gV.flagSearch == 1 and gV.flagMovie == 1: 
 				returnMess = "What movie would you like to search for?"
 				gV.specificMovieSearch = 1
@@ -220,6 +239,12 @@ def on_message(message):
 				gV.flagList = 0
 			elif receiveMess == 'debug':
 				returnMess = receiveMess + receiveWords
+			elif gV.flagRating==1:
+				 gV.ratingSearch = 1
+				 returnMess = "Which movies rating are you looking for? "
+			elif gV.flagRating==1:
+				 gV.ratingSearch = 1
+				 returnMess = "Which movies rating are you looking for? "
 			else:
 				returnMess = "I'm sorry, I didn't understand." #Error catch
 		except Exception as e :
@@ -236,7 +261,7 @@ teamMember = input ("Who are you? ")
 if teamMember == "Luke":
 	client.run('MzgxMDM3NzAyNzEzNDQyMzA0.DPBmiA.74kzIvLmGPBXIP2Hm0wpHr6h3_k') #LUKE
 elif teamMember == "Rob":
-	client.run('PUT BOT TOKEN HERE') #ROB
+	client.run('MzgyOTgwNzIyMDkwMzExNjgx.DPe9HA.M1rcJj26j6u8TK_CtlqEWdAbt4E') #ROB
 elif teamMember == "Charlie":
 	client.run('MzgyODYxMzI5Nzc5OTE2ODAw.DPb31g.oa5a949IIMDIZQZzvYbdtFZ9Ouc') #CHARLIE
 elif teamMember == "Oana":

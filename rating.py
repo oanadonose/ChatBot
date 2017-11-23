@@ -19,21 +19,7 @@ def searchKeyword(receiveMess):
 		else:
 			continue
 	movieList = i.get_keyword(keyword) #returns a list of movies that contain a given keyword
-	x = 0
-	yesResponses = ["yes", "yeah", "okay", "y"]
-	noResponses = ["no", "nope", "no thanks", "nah", "n"]
-	while True:
-		film = movieList[x]
-		i.update(film)
-		print("I recommend "+ film['title'] + ", with a rating of "+ str(film['rating']))
-		user = input("Would you like another recommendation? ")
-		if user.lower() in yesResponses: #loop iterates again, this time printing the next movie in movieList
-			x = x+1
-		elif user.lower() in noResponses:
-			break
-		else:
-			print("I'm afraid I don't understand") #Breaks the while loop in the event of an unexpected input
-			break
-
-#print(getRating("avatar"))
-searchKeyword('find me a film about cars')
+	x = random.randint(0, 50)
+	film = movieList[x]
+	i.update(film)
+	return("I recommend "+ film['title'] + ", with a rating of "+ str(film['rating']))
