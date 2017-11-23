@@ -3,13 +3,15 @@ from imdb import imdb
 from MovieID import movieSearch
 import discord
 import asyncio
+import random
 from castlist import castGet
 from castlist import roleSearch
 from moreInformation2 import moreInfo
 from tvSeries import seasonsEpisodesCounter, listOfEpisodes, infoAboutEpisode
 from directorrr import directorGet
 from Companyinfo import companyInfo
-
+from Top10movies import get_top10movies
+from Top10movies import get_random10movies
 client = discord.Client()
 class gV(): #Defines the class of globalVariables, must start any refernece to these variables with gV.
 	##################List of terms####################
@@ -22,6 +24,7 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	tvSeriesTerms = ['series','tvseries','show']
 	directorTerms = ['director','directed']
         companyTerms=['company']
+	recoTerms =['reco', 'recommendation','recommendate','recommendated','recommende']
 	##################################################
 
 	####################Defaults######################
@@ -61,6 +64,7 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
         flagDirect = 0
         flagTop = 0
         flagCompany = 0
+	flagTop2 = 0
 	#############################################
 
 @client.event #Prints a ready message to terminal
@@ -100,10 +104,25 @@ def on_message(message):
                                 gV.flagDirect = 1
                         if any(word in receiveWords for word in gV.companyTerms):
                                 gV.flagCompany = 1
+			if any(word in receiveWords for word in gV.recoTerms):
+                		gV.flagTop = 1	
+				
 			#############################################
 			if gV.filmIDSearch == 1: #If asking user for movie title for movieID 
 				returnMess = str(movieSearch(receiveMess))
 				gV.filmIDSearch = 0
+		        elif gV.flagTop == 1:
+                		returnMess="Do you want the first 10 movies or 10 random movies from the top of 250 movies?first 10/random"
+               		 	gV.flagTop2 = 1
+                		gV.flagTop = 0   
+            		elif gV.flagTop2 == 1:
+                		if receiveMess== "first10":
+                    			returnMess= str(get_top10movies())
+                		elif receiveMess== "random":
+                    			returnMess=str(get_random10movies())
+               			else:
+                    			returnMess= "Sorry, please respect the input forms"	
+				gV.flagTop2 = 0
 			elif gV.flagDirect == 1:
                 		gV.getdire=1
                 		returnMess="What movie are you interested to know the director?InputID"	
