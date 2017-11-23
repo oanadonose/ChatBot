@@ -1,6 +1,6 @@
 from imdb import IMDb
 
-def newMovieDetails(actor):
+def actorSearch(actor):
     '''This function searches for an actor, asks if the user wants to know more information, outputs actor information or returns to chatbot loop'''
     i = IMDb('http')
     actorSearch = i.search_person(actor)
@@ -37,13 +37,15 @@ def newMovieDetails(actor):
                 else:
                     i.update(actorName)
                     actorID = i.get_person(actorName.getID()) #this section returns all the details about the movie
-                    #print (actorID.keys())
+                    print (actorID.keys())
                     filmList = len(actorID['actor'])
                     print (str(actorName) + "'s full name is " + actorID['birth name'])
                     print (str(actorName) + " has a height of " + actorID['height'])
                     print (str(actorName) + "'s birthday is on " + actorID['birth date'])
-                    print (str(actorName) + " has featured in this list of films \n" + str(actorID["actor"][0:filmList-1]))#need to fix
-                #print(actorID.key2infoset)
+                    print (str(actorName) + " has featured in this list of films \n" + str(actorID["actor"]) +"\n")#cannot get imdbpy to print without added details
+
+                    
+                #print(actorID.key2infoset) - lets me check what I can search for about an actor
                 imURL = i.get_imdbURL(actorID)
                 print ("If you want to look more into " + str(actorName) + " then please follow this link below: \n" + imURL)
 
@@ -52,4 +54,5 @@ def newMovieDetails(actor):
             except KeyError:
                 print ("Sorry I don't think there is enough information on this actor")
 
-newMovieDetails('bill murray')
+
+#actorSearch('bill murray') - test

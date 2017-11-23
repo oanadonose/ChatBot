@@ -9,6 +9,9 @@ from moreInformation2 import moreInfo
 from tvSeries import seasonsEpisodesCounter, listOfEpisodes, infoAboutEpisode
 #from directorrr import directorGet
 #from Companyinfo import companyInfo
+from MovieSearchInfo import newMovieDetails
+from NewActorSearch import actorSearch
+
 
 client = discord.Client()
 class gV(): #Defines the class of globalVariables, must start any refernece to these variables with gV.
@@ -22,6 +25,8 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	tvSeriesTerms = ['series','tvseries','show']
 	directorTerms = ['director','directed']
 	companyTerms=['company']
+	detailTerms =['info','information', 'plot', 'story']
+	actorTerms =['actor', 'actress']
 	##################################################
 
 	####################Defaults######################
@@ -38,6 +43,8 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	getdire = 0
 	getTop = 0
 	company = 0
+	detailsSearch = 0
+	actorSearch = 0
 	##################################################
 
 
@@ -61,6 +68,8 @@ class gV(): #Defines the class of globalVariables, must start any refernece to t
 	flagDirect = 0
 	flagTop = 0
 	flagCompany = 0
+	flagDetails = 0
+	flagActor = 0
 	#############################################
 
 @client.event #Prints a ready message to terminal
@@ -100,13 +109,19 @@ def on_message(message):
 				gV.flagDirect = 1
 			if any(word in receiveWords for word in gV.companyTerms):
 				gV.flagCompany = 1
+			if any(word in receiveWords for word in gV.detailTerms):
+				gV.flagDetails = 1
 			#############################################
 			if gV.filmIDSearch == 1: #If asking user for movie title for movieID 
 				returnMess = str(movieSearch(receiveMess))
 				gV.filmIDSearch = 0
 			elif gV.flagDirect == 1:
 				gV.getdire=1
-				returnMess="What movie are you interested to know the director?InputID"	
+				returnMess="What movie are you interested to know the director?InputID"
+			elif gV.flagDetails == 1 and gV.flagMovie == 1:
+				returnMess = newMovieDetails(gV.detailsSearch)
+				gV.flagDetails = 0
+				gV.flagMovie = 0
 			elif gV.flagCompany == 1:
 				returnMess="What movie are your looking for company info?"
 				gV.company = 1
