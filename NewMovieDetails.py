@@ -16,7 +16,7 @@ def chatbotMovieDetails(title):
         genre = str((movieID['genres']))
         replaceGenre = str(genre).replace("[","").replace("]","").replace("'","")#removes punctuation from imdb format
         returnInfo =(str(movieName) + " is a movie that includes the genres " +str(replaceGenre))
-        plot = (movieID['plot outline'])
+        #plot = (movieID['plot outline'])
         returnInfo = returnInfo + ("\nThe plot of " + str(movieName) + " is that "+ str(plot))
         runtime = (movieID['runtime'])
         returnInfo = returnInfo + ("\nThe runtime of " + str(movieName) + " is " + str(runtime[0]) + " minutes")
