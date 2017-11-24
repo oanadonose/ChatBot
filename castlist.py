@@ -4,9 +4,11 @@ from MovieID import movieSearch
 ia = IMDb()
 
 class vK():
+"""Allows for the retaining of the latest requested movie."""
 	movieKeep = ""
 
 class MovieKeep():
+"""Stores the latest requested movie"""
 	def __init__(self,title):
 		self.title = title
 
