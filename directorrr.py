@@ -1,12 +1,13 @@
 from imdb import IMDb
 ia = IMDb()
+from MovieID import movieSearch
+#title=input("please input movie name")
+def directorGet(title):
+    #transforms movie title in movie id in order to search the director
+    movieid=movieSearch(title)
+    movie=ia.get_movie(movieid)
+    director=movie['director']
+    #returns the first director
+    return director[0]['name']
 
-movie = ia.get_movie('0816692')
-print ("Name of the movie: ", movie)
-for i in movie['director']:
-    print ("Director: ", i)
-    director = ia.search_person(i["name"])[0]
-    ia.update(director)
-    print ("Movies directed by %s:" % director)
-    for movie_name in director["director movie"]:
-        print (movie_name)
+#print(directorGet("Titanic"))
