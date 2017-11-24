@@ -25,7 +25,7 @@ def searchKeyword(receiveMess):
 	x = random.randint(0, 50)
 	try:
 		film = movieList[x]
-	except:
-		IndexError('Could not find any films about that!')
+	except IndexError:
+		return('Could not find any films about that!')
 	i.update(film)
 	return("I recommend "+ film['title'] + ", with a rating of "+ str(film['rating']))
