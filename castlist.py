@@ -9,19 +9,6 @@ def dictConv(dictInput):
 		lowerDict [key.lower()] = key #Fills the new dictionary
 	return lowerDict
 
-
-"""Dependent on movieSearch function, takes movie title as input and returns a list(castList) containing the top 5 cast names"""
-def castGet(movieTitle):
-	castList = [] #Creates an empty list
-	movieID = movieSearch(movieTitle) #Pulls movieID from movieSearch func
-	movie = ia.get_movie(movieID) 
-	for i in range(0,5): #Pulls first 5 actors and adds to list
-		castPull = movie['cast'][i]
-		appendName = castPull['name']
-		castList.append(appendName)
-	return castList
-
-
 """Dependent on movieSearch function, takes movie title as input and returns a list(castList) containing a variable number of cast names"""
 def castGet(movieTitle, endVar=5):
 	i = IMDb(accessSystem='http')
