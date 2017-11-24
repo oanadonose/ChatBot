@@ -12,8 +12,8 @@ from Top10movies import get_top10movies
 from Top10movies import get_random10movies
 from rating import getRating
 from rating import searchKeyword
-#from chatbotActorSearch import chatActorSearch
-#from NewMovieDetails import chatbotMovieDetails
+from chatbotActorSearch import chatActorSearch
+from NewMovieDetails import chatbotMovieDetails
 from directorrr import directorGet
 from Companyinfo import companyInfo
 from Bottom100movies import get_worst10bottom
