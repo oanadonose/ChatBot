@@ -7,7 +7,7 @@ import discord
 import asyncio
 import random
 from castlist import castGet
-from castlist import roleSearch,actorNum
+from castlist import roleSearch,actorNum, vK, MovieKeep
 from moreInformation2 import moreInfo
 from tvSeries import seasonsEpisodesCounter, listOfEpisodes, infoAboutEpisode
 from Top10movies import get_top10movies
@@ -66,6 +66,7 @@ class gV():
     actorSearch = 0
     detailSearch = 0
     roleActSearch = 0
+    moreInfo = 0
     ##################################################
 
 
@@ -170,9 +171,17 @@ def on_message(message):
             elif gV.detailSearch == 1:
                 returnMess = str(chatbotMovieDetails(receiveMess)) + "\n" + str(moreInfo(receiveMess))
                 gV.detailSearch = 0
+            elif gV.moreInfo == 1:
+                if receiveMess == "yes" or receiveMess == "Yes" or receiveMess == "y" or receiveMess == "yes please" or receiveMess == "Y":
+                    returnMess = str(chatbotMovieDetails(vK.movieKeep.get()))
+                    gV.moreinfo = 0
+                else: 
+                    returnMess = "Okay."
+                    gV.moreInfo = 0    
             elif gV.roleActSearch == 1: #Once user inputted title of movie, gives ACTOR as ROLE string
                 gV.roleActSearch = 0
-                returnMess = str(actorNum(receiveWords))
+                returnMess = (str(actorNum(receiveWords)) + "\n" + "\n" + "Would you like more info?")
+                gV.moreInfo = 1
             elif gV.flagDetail == 1 and gV.flagMovie == 1:
                 gV.detailSearch = 1
                 returnMess = "What movie would you like some information about?"
