@@ -1,3 +1,5 @@
+#USES DISCORDPY AND IMDBPY
+
 import random
 from imdb import imdb
 from MovieID import movieSearch
