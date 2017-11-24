@@ -29,7 +29,7 @@ class gV():
     movieTerms = ['movie','film']
     idTerms = ['id']    
     castTerms = ['cast']
-    whoTerms = ['who']
+    whoTerms = ['who','which']
     playTerms = ['play']
     tvSeriesTerms = ['series','tvseries','show']
     episodeTerms = ['episode','episodes']
