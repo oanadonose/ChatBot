@@ -8,16 +8,16 @@ from castlist import castGet
 from castlist import roleSearch
 from moreInformation2 import moreInfo
 from tvSeries import seasonsEpisodesCounter, listOfEpisodes, infoAboutEpisode
-#from directorrr import directorGet
-#from Companyinfo import companyInfo
-#from Top10movies import get_top10movies
-#from Top10movies import get_random10movies
+from Top10movies import get_top10movies
+from Top10movies import get_random10movies
 from rating import getRating
 from rating import searchKeyword
 from chatbotActorSearch import chatActorSearch
 from NewMovieDetails import chatbotMovieDetails
 from directorrr import directorGet
 from Companyinfo import companyInfo
+from Bottom100movies import get_worst10bottom
+from Bottom100movies import get_random10bottom
 
 client = discord.Client()
 class gV():
@@ -34,6 +34,7 @@ class gV():
 	directorTerms = ['director','directed']
 	companyTerms=['company']
 	recoTerms =['reco', 'recommendation','recommendate','recommendated','recommende']
+	bottomMovieTerms=['bottom','bad','worst']
 	ratingTerms = ['rating']
 	keywordTerms = ['about', 'including']
 	detailTerms = ['plot', 'story','details']
@@ -81,6 +82,8 @@ class gV():
 	flagSeriesSeason = 0
 	flagSeriesEpisode = 0
 	flagReco = 0
+	flagBottom = 0
+        flagBot2 = 0
 	flagDirect = 0
 	flagTop = 0
 	flagCompany = 0
@@ -145,6 +148,8 @@ def on_message(message):
 				gV.flagDetail = 1
 			if any(word in receiveWords for word in gV.actorTerms):
 				gV.flagActor = 1
+			if any(word in receiveWords for word in gV.bottomMovieTerms):
+                		gV.flagBottom = 1	
 			#############################################
 			if gV.flagGreetings == 1:
 				returnMess = random.choice(gV.greetingsTerms)
@@ -171,6 +176,18 @@ def on_message(message):
 				returnMess = "What actor would you like some information about?"
 				gV.flagActor = 0
 				gV.flagSearch = 0
+			elif gV.flagBottom == 1:
+                		returnMess="Do you want the worst ten movies or random 10 movies from worst top 100? Worst10/Random"
+               			gV.flagBot2 = 1
+                		gV.flagBottom = 0
+            		elif gV.flagBot2 == 1:
+                		if receiveMess == "Worst10" or receiveMess == "worst10" or receiveMess == "Worst10":
+                    			returnMess = str(get_worst10bottom())
+                		elif receiveMess == "Random" or receiveMess == "random":
+                    			returnMess =str(get_random10bottom())
+                		else:
+                    			returnMess ="Sorry, please respect the input forms"
+                		gV.flagBot2 = 0
 			elif gV.flagTop == 1:
 				returnMess="Do you want the first 10 movies or 10 random movies from the top of 250 movies?first 10/random"
 				gV.flagTop2 = 1
