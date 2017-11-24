@@ -181,6 +181,9 @@ def on_message(message):
 				returnMess = "What movie would you like to search for the cast members of?"
 			elif gV.flagKeyword==1 and gV.flagMovie == 1 and gV.flagSearch == 1:
 				returnMess = str(searchKeyword(str(receiveMess)))
+				gV.flagKeyword = 0
+				gV.flagMovie = 0
+				gV.flagSearch = 0
 			elif gV.flagSearch == 1 and gV.flagMovie == 1: 
 				returnMess = "What movie would you like to search for?"
 				gV.specificMovieSearch = 1
@@ -239,9 +242,6 @@ def on_message(message):
 				gV.flagList = 0
 			elif receiveMess == 'debug':
 				returnMess = receiveMess + receiveWords
-			elif gV.flagRating==1:
-				 gV.ratingSearch = 1
-				 returnMess = "Which movies rating are you looking for? "
 			elif gV.flagRating==1:
 				 gV.ratingSearch = 1
 				 returnMess = "Which movies rating are you looking for? "

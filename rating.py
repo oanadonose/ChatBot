@@ -7,10 +7,13 @@ def getRating(movie):
 	movieList = i.search_movie(movie)
 	firstMatch = movieList[0]
 	i.update(firstMatch)
-	return("%s : %s" % (firstMatch['title'], firstMatch['rating']))
+	try:
+		return("%s : %s" % (firstMatch['title'], firstMatch['rating']))
+	except:
+		return(KeyError('Could not find that film!'))
 
 def searchKeyword(receiveMess):
-	"""Takes a keyword as input, and searches for films containing that keyword, returning their title and rating"""
+	"""Takes a keyword as input, and searches for films containing that keyword, returning it's title and rating"""
 	inputList = receiveMess.split()
 	for n in range(0, len(inputList)-1):
 		if inputList[n] == "about":
@@ -20,6 +23,9 @@ def searchKeyword(receiveMess):
 			continue
 	movieList = i.get_keyword(keyword) #returns a list of movies that contain a given keyword
 	x = random.randint(0, 50)
-	film = movieList[x]
+	try:
+		film = movieList[x]
+	except:
+		IndexError('Could not find any films about that!')
 	i.update(film)
 	return("I recommend "+ film['title'] + ", with a rating of "+ str(film['rating']))
