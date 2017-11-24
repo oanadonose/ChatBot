@@ -14,12 +14,14 @@ from tvSeries import seasonsEpisodesCounter, listOfEpisodes, infoAboutEpisode
 #from Top10movies import get_random10movies
 from rating import getRating
 from rating import searchKeyword
+from chatbotActorSearch import chatActorSearch
+from NewMovieDetails import chatbotMovieDetails
 
 client = discord.Client()
 class gV():
 	#Defines the class of globalVariables, must start any refernece to these variables with gV.
 	##################List of terms####################
-	searchTerms = ['search','find']
+	searchTerms = ['search','find','know', 'information','info']
 	movieTerms = ['movie','film']
 	idTerms = ['id']    
 	castTerms = ['cast']
@@ -32,6 +34,8 @@ class gV():
 	recoTerms =['reco', 'recommendation','recommendate','recommendated','recommende']
 	ratingTerms = ['rating']
 	keywordTerms = ['about', 'including']
+	detailTerms = ['plot', 'story','details']
+	actorTerms = ['actor', 'actress']
 	##################################################
 
 
@@ -51,6 +55,8 @@ class gV():
 	company = 0
 	ratingTitleSearch = 0
 	ratingSearch=0
+	actorSearch = 0
+	detailSearch = 0
 	##################################################
 
 
@@ -77,6 +83,8 @@ class gV():
 	flagTop2 = 0
 	flagRating = 0
 	flagKeyword = 0
+	flagActor = 0
+	flagDetail = 0
 	#############################################
 
 @client.event #Prints a ready message to terminal
@@ -122,10 +130,30 @@ def on_message(message):
 				gV.flagRating = 1
 			if any(word in receiveWords for word in gV.keywordTerms):
 				gV.flagKeyword = 1
+			if any(word in receiveWords for word in gV.detailTerms):
+				gV.flagDetail = 1
+			if any(word in receiveWords for word in gV.actorTerms):
+				gV.flagActor = 1
 			#############################################
 			if gV.filmIDSearch == 1: #If asking user for movie title for movieID 
 				returnMess = str(movieSearch(receiveMess))
 				gV.filmIDSearch = 0
+			elif gV.detailSearch == 1:
+				returnMess = str(chatbotMovieDetails(receiveMess))
+				gV.detailSearch = 0
+			elif gV.flagDetail == 1 and gV.flagMovie == 1:
+				gV.detailSearch = 1
+				returnMess = "What movie would you like some information about?"
+				gV.flagDetail = 0
+				gV.flagMovie = 0
+			elif gV.actorSearch == 1:
+				returnMess = str(chatActorSearch(receiveMess))
+				gV.actorSearch = 0
+			elif gV.flagActor == 1 and gV.flagSearch == 1:
+				gV.actorSearch = 1
+				returnMess = "What actor would you like some information about?"
+				gV.flagActor = 0
+				gV.flagSearch = 0
 			elif gV.flagTop == 1:
 				returnMess="Do you want the first 10 movies or 10 random movies from the top of 250 movies?first 10/random"
 				gV.flagTop2 = 1

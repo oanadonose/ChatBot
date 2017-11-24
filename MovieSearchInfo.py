@@ -6,6 +6,7 @@ def newMovieDetails(title):
     movieSearch = i.search_movie(title)
     count = 0
     retry = 0
+    return movieSearch[count]
     try:
         errorCheck = (movieSearch[count])
     except IndexError:
@@ -17,13 +18,13 @@ def newMovieDetails(title):
         except IndexError:
             endFunc = input("Hey, the list is finished...") #when no more movies are found, handles error and returns the user to the main chatbot
             break
-        trFalse = input ("Is this the movie you were looking for?  ")
+        receiveMess = input ("Is this the movie you were looking for?  ")
         noWords = ['no', 'nah', 'n', 'nope', 'No', 'Nah', 'N', 'Nope','STOP']
         if any(word in trFalse for word in noWords): #checks if the user responds no when checking if the film is right and continues to return another film
             count = count + 1
             if trFalse == 'STOP':
                 print ("Would you like to ask me something else? ")
-                break
+                return
             if count == 5:
                 print("\nHey it looks like I'm struggling to find the film for you. If you want to ask me something else, just tell me to 'STOP'? \n")
         else:
@@ -35,7 +36,7 @@ def newMovieDetails(title):
                 noWords = ['no', 'nah', 'n', 'nope', 'No', 'Nah', 'N', 'Nope']
                 if any(word in movieInfo for word in noWords):
                     print ("Would you like to ask me something else?")
-                    break
+                    
                 else:
                     i.update(movieName)
                     movieID = i.get_movie(movieName.getID()) #this section returns all the details about the movie(Genre, Plot, Runtime, Parental Rating/Certificate)
@@ -48,7 +49,7 @@ def newMovieDetails(title):
                     runtime = (movieID['runtime'])
                     print ("The runtime of " + str(movieName) + " is " + str(runtime[0]) + " minutes")
                     certificates = (movieID['mpaa'])
-                    print ("The certificate for " + str(movieName) + " is  "+ str(certificates))
+                    return ("The certificate for " + str(movieName) + " is  "+ str(certificates))
             except KeyError:
                 print ("Sorry I don't think there is enough information on this movie")
 
