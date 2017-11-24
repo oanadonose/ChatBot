@@ -45,16 +45,6 @@ def seasonsEpisodesCounter(seriesTitle):  #if kind===tv series
 #print(str(episodes))
 #--------------------------------------
 
-
-
-
-#def listOfEpisodes(episodes):
-#	message = ""
-#	for k,v in episodes.items():
-#		for x,y in v.items():
-#			message = message + str(k) + str(x)
-#listOfEpisodes(episodes)
-#print(seasonsEpisodesCounter(seriesTitle)) #test
 def listOfEpisodes(seriesTitle):#if kind===tv series
 	"""Takes as input a title and returns an unordered list of seasons and ordered list of episodes as a string"""
 	seriesID = movieSearch(seriesTitle)
@@ -73,6 +63,7 @@ def listOfEpisodes(seriesTitle):#if kind===tv series
 #print (listOfEpisodes(episodes))
 #print(listOfEpisodes(seriesTitle))
 #--------------------------------------------------------------------------------------------------------------
+
 def infoAboutEpisode(seriesTitle,seasonNumber,episodeNumber):
 	"""Takes a string and two numbers as input and returns a string with the title of the episode, the number and the cast, plot and rating."""
 	seriesID = movieSearch(seriesTitle)
