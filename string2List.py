@@ -10,5 +10,3 @@ def stringToList(receiveMess):
 				wordGood = word.replace(character,"")
 				receiveMess[wordPlace] = wordGood
 	return receiveMess
-
-

@@ -6,7 +6,6 @@ from directorfunc import directorGet
 from writerfunc import writerGet
 from producerfunc import producerGet
 
-
 i = IMDb()
 
 #Testing----------------------------------------------------------------------------------------------
@@ -14,6 +13,7 @@ i = IMDb()
 #-----------------------------------------------------------------------------------------------------
 
 def moreInfo( title ):
+	"""Function that retrieves the kind of show, title, year, rating, cast, directors, writers, producers-takes as input a title and returns a string"""
 	kind = str(determineKind(title))
 	titleID = movieSearch(title)
 	m = i.get_movie(str(titleID))  #retrieves the movie object for the title input
@@ -36,18 +36,18 @@ def moreInfo( title ):
 			plot = m['plot']
 			for plots in plot:
 				plotStr = str(plots) + "\n"
-			info = info + "\n`This should be the plot:`\n" + plotStr + "\n"
+			info = info + "\n`This should be the plot:`\n" + plotStr
 			#DIRECTORS
 			numberOfDirectors,directorList = directorGet(m)
-			info = info + "\n`The` " +str(numberOfDirectors) +  " `directors:` \n "
+			info = info + "\n" +str(numberOfDirectors) +  " `directors:` \n "
 			info = info + str(directorList) + "\n"
 			#WRITERS
 			numberOfWriters,writerList = writerGet(m)
-			info = info + "\n`The` " + str(numberOfWriters) + " `writers:` \n "
+			info = info + "\n" + str(numberOfWriters) + " `writers:` \n "
 			info = info + str(writerList) + "\n"
 			#PRODUCERS
 			numberOfProducers,producerList = producerGet(m)
-			info = info + "`The` " + str(numberOfProducers) + " `producers:` \n "
+			info = info + "\n" + str(numberOfProducers) + " `producers:` \n "
 			info = info + str(producerList) + "\n"
 		except KeyError:
 			info = info + "Sorry, I couldn't handle anything more than that."
@@ -102,8 +102,6 @@ def moreInfo( title ):
 		except KeyError:
 			info = info + "\nSorry, I couldn't handle anything more than that."	
 	return info
-
-
 
 #Testing-------------------------------------------------
 
