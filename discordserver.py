@@ -34,7 +34,7 @@ class gV():
     directorTerms = ['director','directed']
     companyTerms=['company']
     recoTerms =['reco', 'recommendation','recommendate','recommendated','recommende']
-    bottomMovieTerms=['bottom','bad','worst']
+    bottomMovieTerms=['bottom','bad']
     ratingTerms = ['rating']
     keywordTerms = ['about', 'including']
     detailTerms = ['plot', 'story','details']
@@ -210,7 +210,7 @@ def on_message(message):
                     gV.flagTop2 = 0
             elif gV.flagDirect == 1:
                 gV.getdire=1
-                returnMess="What movie are you interested to know the director?InputID" 
+                returnMess="What movie are you interested to know the director?" 
             elif gV.flagCompany == 1:
                 returnMess="What movie are your looking for company info?"
                 gV.company = 1
