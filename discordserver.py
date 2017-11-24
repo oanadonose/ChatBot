@@ -166,7 +166,7 @@ def on_message(message):
                 returnMess = str(movieSearch(receiveMess))
                 gV.filmIDSearch = 0
             elif gV.detailSearch == 1:
-                returnMess = str(chatbotMovieDetails(receiveMess))
+                returnMess = str(chatbotMovieDetails(receiveMess)) + "\n" + str(moreInfo(receiveMess))
                 gV.detailSearch = 0
             elif gV.roleActSearch == 1: #Once user inputted title of movie, gives ACTOR as ROLE string
                 gV.roleActSearch = 0
