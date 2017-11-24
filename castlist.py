@@ -1,7 +1,7 @@
 from imdb import IMDb
 from MovieID import movieSearch
 ia = IMDb()
-
+		
 '''Takes a dictionary as input, converts all the keys to lowercase and places them as new keys, with the original as the value'''
 def dictConv(dictInput):
 	lowerDict = {} #Empty dict
@@ -30,7 +30,6 @@ def castGetMulti(movieTitle, endVar=5):
 	movie = i.get_movie(movieID) 
 	for i in range(0,endVar): #Pulls first 5 actors and adds to list
 		castPull = movie['cast'][i]
-		
 		appendName = castPull['name']
 		castList.append(appendName)
 		#castList = [x.encode('utf-8') for x in castList]
@@ -56,7 +55,7 @@ def actorDict(receiveMess):
 def roleDict(movieTitle):
 	i = IMDb(accessSystem='http')
 	movieID = movieSearch(movieTitle) #Pulls movieID from movieSearch func
-	movie = i.get_movie(movieID) 
+	movie = i.get_movie(movieID)
 	roleDict = {} #Creates empty dictionary
 	cast = movie.get('cast') 
 	try: #Pulls all actors out of the film until it fails.
@@ -84,7 +83,7 @@ def actorNum(movieTitle, endVar=5):
 	return castStr	
 
 
-"""Dependent on movieSearch function, takes 'who does ACTOR play in FILM' as input and returns their role in the film"""
+"""Dependent on movieSearch function, takes 'who does ACTOR play in FILM' as input and returns their role in the film or which actor plays ROLE in FILM and returns the actor"""
 def roleSearch(receiveMess):
 	i = IMDb(accessSystem='http')
 	if "does" not in receiveMess:
@@ -96,7 +95,7 @@ def roleSearch(receiveMess):
 			roleDictPull = roleDict(filmPull) #Gets the dictionary from film name
 			lowerDict = dictConv(roleDictPull) #Creates a dictionary of lowercase roles against their original versions
 			upperChar = lowerDict[charPull] #Pulls the original version from the lowercase user input
-			return str(roleDictPull[upperChar]) 
+			return (str(charPull).title() + " is played by " + (str(roleDictPull[upperChar])) + " in " + str(filmPull).title())
 		except KeyError:
 			return("That character is not in that film")
 	else:
@@ -108,8 +107,8 @@ def roleSearch(receiveMess):
 			actorDictPull = actorDict(filmPull) #Gets the dictionary from film name
 			lowerDict = dictConv(actorDictPull) #Creates a dictionary of lowercase actors against their original names
 			upperActor = lowerDict[actorPull] #Pulls the original version from the lowercase user input
-			return str(actorDictPull[upperActor])
-			actorDictPull = actorDict(filmPull)
-			return str(actorDictPull[actorPull])
+			return (upperActor + " plays " + str(actorDictPull[upperActor] + " in " + str(filmPull).title()))
+			#actorDictPull = actorDict(filmPull)
+			#return str(actorDictPull[actorPull])
 		except KeyError:
 			return("That actor is not in that film")
